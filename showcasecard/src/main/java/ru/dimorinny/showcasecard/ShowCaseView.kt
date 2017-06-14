@@ -14,6 +14,8 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.TextView
 import ru.dimorinny.showcasecard.ext.*
+import ru.dimorinny.showcasecard.util.ActivityUtils
+import ru.dimorinny.showcasecard.util.NavigationBarUtils
 
 class ShowCaseView(context: Context) : FrameLayout(context) {
 
@@ -192,12 +194,28 @@ class ShowCaseView(context: Context) : FrameLayout(context) {
         }
     }
 
+    private fun initCardOffsets(activity: Activity) {
+        if (ActivityUtils.getOrientation(activity) == Configuration.ORIENTATION_LANDSCAPE) {
+            when (NavigationBarUtils.navigationBarPosition(activity)) {
+                NavigationBarUtils.NavigationBarPosition.LEFT ->
+                    cardLeftOffset = NavigationBarUtils.navigationBarHeight(activity)
+                NavigationBarUtils.NavigationBarPosition.RIGHT ->
+                    cardRightOffset = NavigationBarUtils.navigationBarHeight(activity)
+                else -> {
+                }
+            }
+        }
+    }
+
     private fun showAfterMeasured(
             activity: Activity,
             container: ViewGroup,
             measuredView: View
     ) {
         measuredView.afterOrAlreadyMeasured {
+
+            initCardOffsets(activity)
+
             when {
                 typedPosition is ShowCasePosition.ViewPosition
                         || typedRadius is ShowCaseRadius.ViewRadius -> {
@@ -301,16 +319,6 @@ class ShowCaseView(context: Context) : FrameLayout(context) {
         }
 
         fun build() = ShowCaseView(activity).apply {
-            if (activity.getOrientation() == Configuration.ORIENTATION_LANDSCAPE) {
-                when (activity.navigationBarPosition()) {
-                    NavigationBarPosition.LEFT -> cardLeftOffset = activity.navigationBarHeight()
-                    NavigationBarPosition.RIGHT -> cardRightOffset = activity.navigationBarHeight()
-                    else -> {
-                        // Do nothing
-                    }
-                }
-            }
-
             dismissListener = this@Builder.dismissListener
             typedRadius = this@Builder.radius
             typedPosition = this@Builder.position

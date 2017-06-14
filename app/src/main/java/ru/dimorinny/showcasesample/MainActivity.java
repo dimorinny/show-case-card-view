@@ -14,12 +14,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        new ShowCaseView.Builder(this)
-                .withTypedPosition(
-                        new ShowCasePosition.ViewPosition(
-                                findViewById(R.id.hello_label)
-                        )
-                )
+        new ShowCaseView.Builder(MainActivity.this)
+                .withTypedPosition(new ShowCasePosition.BottomRight())
+//                        .withTypedPosition(
+//                                new ShowCasePosition.ViewPosition(
+//                                        findViewById(R.id.hello_label)
+//                                )
+//                        )
                 .withTypedRadius(
                         new ShowCaseRadius.ViewRadius(
                                 findViewById(R.id.hello_label),
@@ -30,6 +31,6 @@ public class MainActivity extends AppCompatActivity {
                         "This is hello world!"
                 )
                 .build()
-                .show(this);
+                .show(MainActivity.this);
     }
 }

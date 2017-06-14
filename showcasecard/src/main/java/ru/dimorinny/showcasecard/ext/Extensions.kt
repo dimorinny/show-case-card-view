@@ -1,55 +1,10 @@
 package ru.dimorinny.showcasecard.ext
 
-import android.app.Activity
 import android.content.Context
 import android.graphics.PointF
-import android.os.Build
-import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
-import android.widget.FrameLayout
-
-fun Context.getOrientation() = resources.configuration.orientation
-
-fun Context.hasNavigationBar(): Boolean {
-    val id = resources.getIdentifier("config_showNavigationBar", "bool", "android")
-    return id > 0 && resources.getBoolean(id)
-}
-
-enum class NavigationBarPosition {
-    BOTTOM,
-    LEFT,
-    RIGHT,
-    UNKNOWN
-}
-
-fun Activity.navigationBarPosition(): NavigationBarPosition {
-    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && hasNavigationBar()) {
-        val gravity = (findViewById(android.R.id.navigationBarBackground)
-            .layoutParams as FrameLayout.LayoutParams).gravity
-        gravityToNavigationBarPosition(gravity)
-    } else {
-        NavigationBarPosition.UNKNOWN
-    }
-}
-
-fun gravityToNavigationBarPosition(gravity: Int): NavigationBarPosition {
-    return when (gravity) {
-        Gravity.BOTTOM -> NavigationBarPosition.BOTTOM
-        Gravity.LEFT -> NavigationBarPosition.LEFT
-        Gravity.RIGHT -> NavigationBarPosition.RIGHT
-        else -> NavigationBarPosition.UNKNOWN
-    }
-}
-
-fun Context.navigationBarHeight(): Int {
-    val resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android")
-
-    return if (hasNavigationBar() && resourceId > 0) {
-        resources.getDimensionPixelSize(resourceId)
-    } else 0
-}
 
 fun Context.statusBarHeight(): Int {
     val resourceId = resources.getIdentifier("status_bar_height", "dimen", "android")
