@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Showcasesample</string>
+    <string name="top_left">Top Left</string>
+    <string name="top_right">Top Right</string>
+    <string name="bottom_left">Bottom left</string>
+    <string name="bottom_right">Bottom right</string>
+    <string name="top_left_toolbar">Top left toolbar</string>
+    <string name="top_right_toolbar">Top right toolbar</string>
+    <string name="view_position">View position</string>
 </resources>

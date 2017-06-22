@@ -246,7 +246,7 @@ public class ShowCaseView extends FrameLayout {
             final ViewGroup container,
             View measuredView
     ) {
-        MeasuredUtils.afterMeasured(measuredView, new MeasuredUtils.OnMeasuredHandler() {
+        MeasuredUtils.afterOrAlreadyMeasured(measuredView, new MeasuredUtils.OnMeasuredHandler() {
             @Override
             public void onMeasured() {
                 initCardOffsets(activity);
@@ -307,7 +307,7 @@ public class ShowCaseView extends FrameLayout {
             container.addView(this);
 
             final FrameLayout card = new FrameLayout(getContext());
-            MeasuredUtils.afterMeasured(
+            MeasuredUtils.afterOrAlreadyMeasured(
                     card,
                     new MeasuredUtils.OnMeasuredHandler() {
                         @Override

@@ -39,7 +39,7 @@ public class MeasuredUtils {
         }
     }
 
-    private static void afterOrAlreadyMeasured(final View view, final OnMeasuredHandler handler) {
+    public static void afterOrAlreadyMeasured(final View view, final OnMeasuredHandler handler) {
         if (view.getMeasuredWidth() != 0 && view.getMeasuredHeight() != 0) {
             handler.onMeasured();
         } else {
