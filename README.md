@@ -2,9 +2,7 @@
 	<img src="https://raw.githubusercontent.com/dimorinny/show-case-card-view/master/art/logo.png">
 </div>
 
-```
-// TODO: badges
-```
+[![](https://jitpack.io/v/dimorinny/show-case-card-view.svg)](https://jitpack.io/#dimorinny/show-case-card-view)
 
 ## Dependency
 
@@ -22,7 +20,9 @@ allprojects {
 Add dependency to your module's build.gradle file:
 
 ```
-// TODO: import
+dependencies {
+    compile 'com.github.dimorinny:show-case-card-view:0.0.1'
+}
 ```
 
 ## Usage
