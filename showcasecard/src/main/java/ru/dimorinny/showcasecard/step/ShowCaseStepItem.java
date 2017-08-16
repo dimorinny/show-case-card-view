@@ -24,7 +24,7 @@ public class ShowCaseStepItem {
 
     /**
      * @param viewToShowCase   if set, bubble will point to this view
-     * @param fallbackPosition position to use when attachedView is null
+     * @param fallbackPosition position to use when viewToShowCase is null
      * @param message
      */
     public ShowCaseStepItem(@Nullable View viewToShowCase,
@@ -48,14 +48,14 @@ public class ShowCaseStepItem {
     }
 
     /**
-     * True to scroll to the view when this item is being activated.
+     * True to scroll to the viewToShowCase when this item is being activated.
      */
     public boolean isScrollToView() {
         return scrollToView;
     }
 
     /**
-     * True to scroll to the view when this item is being activated.
+     * True to scroll to the viewToShowCase when this item is being activated.
      */
     public ShowCaseStepItem setScrollToView(boolean scrollToView) {
         this.scrollToView = scrollToView;
