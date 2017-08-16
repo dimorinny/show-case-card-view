@@ -1,5 +1,7 @@
 package ru.dimorinny.showcasecard;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -15,6 +17,7 @@ import android.support.annotation.DrawableRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -96,7 +99,7 @@ public class ShowCaseView extends FrameLayout {
         return dx <= radius && dy <= radius;
     }
 
-    private void removeFromWindow() {
+    public void removeFromWindow() {
         if (getParent() != null && getParent() instanceof ViewGroup) {
             ((ViewGroup) getParent()).removeView(this);
         }
@@ -356,31 +359,33 @@ public class ShowCaseView extends FrameLayout {
 
     public void hide() {
         if (!hideAnimationPerforming) {
+
             animate()
-                    .withStartAction(new Runnable() {
+                    .setListener(new AnimatorListenerAdapter() {
                         @Override
-                        public void run() {
-                            hideAnimationPerforming = true;
-                        }
-                    })
-                    .alpha(0F)
-                    .withEndAction(new Runnable() {
-                        @Override
-                        public void run() {
+                        public void onAnimationEnd(Animator animation) {
                             hideAnimationPerforming = false;
                             removeFromWindow();
                         }
-                    });
+
+                        @Override
+                        public void onAnimationStart(Animator animation) {
+                            super.onAnimationStart(animation);
+                            hideAnimationPerforming = true;
+                        }
+                    })
+                    .alpha(0F);
         }
     }
 
     public interface DismissListener {
+
         void onDismiss();
     }
 
     public static class Builder {
 
-        private Activity activity;
+        private Context context;
 
         @ColorRes
         private int color = R.color.black20;
@@ -392,8 +397,8 @@ public class ShowCaseView extends FrameLayout {
                 new PointF(0F, 0F)
         );
 
-        public Builder(Activity activity) {
-            this.activity = activity;
+        public Builder(Context context) {
+            this.context = context;
         }
 
         public Builder withTypedRadius(ShowCaseRadius radius) {
@@ -418,7 +423,7 @@ public class ShowCaseView extends FrameLayout {
 
         @SuppressLint("InflateParams")
         public Builder withContent(String cardText) {
-            this.contentView = (TextView) activity.getLayoutInflater().inflate(
+            this.contentView = (TextView) LayoutInflater.from(context).inflate(
                     R.layout.item_show_case_content,
                     null
             );
@@ -428,11 +433,11 @@ public class ShowCaseView extends FrameLayout {
         }
 
         public ShowCaseView build() {
-            ShowCaseView view = new ShowCaseView(activity);
+            ShowCaseView view = new ShowCaseView(context);
             view.dismissListener = this.dismissListener;
             view.typedRadius = this.radius;
             view.typedPosition = this.position;
-            view.overlayPaint.setColor(ContextCompat.getColor(activity, this.color));
+            view.overlayPaint.setColor(ContextCompat.getColor(context, this.color));
 
             if (this.contentView != null && contentText != null) {
                 view.setContent(this.contentView, this.contentText);

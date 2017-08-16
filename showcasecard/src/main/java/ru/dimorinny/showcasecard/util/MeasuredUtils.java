@@ -8,6 +8,7 @@ import java.util.List;
 public class MeasuredUtils {
 
     public interface OnMeasuredHandler {
+
         void onMeasured();
     }
 
@@ -16,7 +17,7 @@ public class MeasuredUtils {
             @Override
             public void onGlobalLayout() {
                 if (view.getMeasuredWidth() > 0 && view.getMeasuredHeight() > 0) {
-                    view.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                    view.getViewTreeObserver().removeGlobalOnLayoutListener(this);
                     handler.onMeasured();
                 }
             }
@@ -26,14 +27,18 @@ public class MeasuredUtils {
     public static void afterOrAlreadyMeasuredViews(final List<View> views, final OnMeasuredHandler handler) {
         final int[] count = {views.size()};
 
-        if (count[0] <= 0) handler.onMeasured();
+        if (count[0] <= 0) {
+            handler.onMeasured();
+        }
 
         for (View view : views) {
             afterOrAlreadyMeasured(view, new OnMeasuredHandler() {
                 @Override
                 public void onMeasured() {
                     count[0]--;
-                    if (count[0] <= 0) handler.onMeasured();
+                    if (count[0] <= 0) {
+                        handler.onMeasured();
+                    }
                 }
             });
         }
