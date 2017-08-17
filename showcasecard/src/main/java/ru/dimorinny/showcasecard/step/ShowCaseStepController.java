@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.TypedValue;
+import android.widget.ScrollView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,10 +22,17 @@ import ru.dimorinny.showcasecard.radius.Radius;
 public class ShowCaseStepController {
 
     private Context context;
+
     @Nullable
     private Activity activity;
     @Nullable
     private Fragment fragment;
+    /**
+     * ScrollView used on all {@link ShowCaseStepItem}'s that dictate
+     * scrolling on activation.
+     */
+    @Nullable
+    private ScrollView scrollView;
 
     private float showCaseRadius;
 
@@ -32,6 +40,7 @@ public class ShowCaseStepController {
      * All items to be displayed.
      */
     private List<ShowCaseStepItem> items = new ArrayList<>();
+    private ShowCaseStepScroller showCaseStepScroller;
 
     /**
      * Index of the currently shown item in the items list.
@@ -49,6 +58,30 @@ public class ShowCaseStepController {
     public ShowCaseStepController(@NonNull Activity activity) {
         this.activity = activity;
         this.context = activity;
+    }
+
+    /**
+     * @param scrollView scrollView to use on all {@link ShowCaseStepItem}'s that dictate
+     *                   scrolling on activation.
+     */
+    public ShowCaseStepController(@NonNull Fragment fragment, @NonNull ScrollView scrollView) {
+        this.fragment = fragment;
+        this.scrollView = scrollView;
+        this.context = fragment.getContext();
+
+        showCaseStepScroller = new ShowCaseStepScroller(scrollView);
+    }
+
+    /**
+     * @param scrollView scrollView to use on all {@link ShowCaseStepItem}'s that dictate
+     *                   scrolling on activation.
+     */
+    public ShowCaseStepController(@NonNull Activity activity, @NonNull ScrollView scrollView) {
+        this.activity = activity;
+        this.scrollView = scrollView;
+        this.context = activity;
+
+        showCaseStepScroller = new ShowCaseStepScroller(scrollView);
     }
 
     /**
@@ -99,18 +132,26 @@ public class ShowCaseStepController {
     private void displayTip(ShowCaseStepItem item) {
 
         if (item.isScrollToView()) {
+            // items needs to be scrolled to
+
+            if (showCaseStepScroller == null) {
+                throw new RuntimeException("One of your items has 'scrollToView' on true but you " +
+                        "are not providing a ScrollView. To solve this, use a ShowCaseStepController " +
+                        "constructor with a scrollview.");
+            }
 
             if (showCaseView != null) {
                 // remove last view
                 showCaseView.removeFromWindow();
             }
 
-            //showCaseDisplayer.scrollToShowcase(item, success -> {
-            //    return
-            //});// TODO add scrolling to the item
+            // scroll first, after that display the item:
+            showCaseStepScroller.scrollToShowCaseStepItem(item,
+                    () -> doDisplayTip(item)
+            );
 
-            doDisplayTip(item);
         } else {
+            // display item right away
             doDisplayTip(item);
         }
     }

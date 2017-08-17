@@ -11,21 +11,27 @@ import ru.dimorinny.showcasecard.position.ViewPosition;
  */
 public class ShowCaseStepItem {
 
-    // TODO test if submodule updating works
-
     /**
-     * Position on the screen to point the bubble to, when viewToShowCase is not set.
+     * Position on the screen to point the showcase to, when viewToShowCase is not set.
      */
     private ShowCasePosition fallbackPosition;
+    /**
+     * Message to display when this item is activated.
+     */
     private String message;
+    /**
+     * View this showcase is attached to. Null if no view (but a position) is directly attached
+     * to this item.
+     */
+    @Nullable
     private View viewToShowCase;
     /**
-     * True to scroll to the view when this item is being activated.
+     * True to scroll to the {@link #viewToShowCase} when this item is being activated.
      */
     private boolean scrollToView;
 
     /**
-     * @param viewToShowCase   if set, bubble will point to this view
+     * @param viewToShowCase   if set, showcase will point to this view
      * @param fallbackPosition position to use when viewToShowCase is null
      * @param message
      */
@@ -64,6 +70,7 @@ public class ShowCaseStepItem {
         return this;
     }
 
+    @Nullable
     public View getViewToShowCase() {
         return viewToShowCase;
     }
