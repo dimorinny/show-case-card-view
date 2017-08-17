@@ -1,5 +1,4 @@
 apply plugin: 'com.android.library'
-apply plugin: 'com.github.dcendents.android-maven'
 
 group = 'com.github.dimorinny'
 version = '0.0.2'
@@ -34,6 +33,5 @@ dependencies {
     api 'com.android.support:appcompat-v7:26.0.1'
 }
 repositories {
-    mavenCentral()
     google()
 }
