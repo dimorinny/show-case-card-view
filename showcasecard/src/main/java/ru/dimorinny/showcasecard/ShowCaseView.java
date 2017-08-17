@@ -14,6 +14,7 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.view.Gravity;
@@ -70,6 +71,18 @@ public class ShowCaseView extends FrameLayout {
 
     private TextView cardContent;
 
+    /**
+     * True to dismiss the card on touch/click. True by default.
+     */
+    private boolean dismissOnTouch = true;
+
+    @Nullable
+    private TouchListener touchListener;
+    /**
+     * True to hide the card view (dark overlay will still be shown).
+     */
+    private boolean hideCard = false;
+
     public ShowCaseView(Context context) {
         super(context);
 
@@ -99,7 +112,7 @@ public class ShowCaseView extends FrameLayout {
         return dx <= radius && dy <= radius;
     }
 
-    public void removeFromWindow() {
+    private void removeFromWindow() {
         if (getParent() != null && getParent() instanceof ViewGroup) {
             ((ViewGroup) getParent()).removeView(this);
         }
@@ -252,6 +265,7 @@ public class ShowCaseView extends FrameLayout {
         MeasuredUtils.afterOrAlreadyMeasured(measuredView, new MeasuredUtils.OnMeasuredHandler() {
             @Override
             public void onMeasured() {
+
                 initCardOffsets(activity);
 
                 List<View> viewsToMeasure = new ArrayList<>();
@@ -289,19 +303,47 @@ public class ShowCaseView extends FrameLayout {
         });
     }
 
+    /**
+     * Hides the current card. Will still display the dark overlay still.
+     */
+    public void hideCard() {
+        ((View) cardContent.getParent()).setVisibility(View.GONE);
+        hideCard = true;
+        invalidate();
+    }
+
+    /**
+     * True to dismiss the card on touch/click. True by default.
+     */
+    public void setDismissOnTouch(boolean dismissOnTouch) {
+        this.dismissOnTouch = dismissOnTouch;
+    }
+
+
     @Override
     public void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+
         canvas.drawPaint(overlayPaint);
-        canvas.drawCircle(position.x, position.y, radius, circlePaint);
+
+        if (!hideCard) {
+            canvas.drawCircle(position.x, position.y, radius, circlePaint);
+        }
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if (dismissListener != null) {
-            dismissListener.onDismiss();
+
+        if (touchListener != null) {
+            touchListener.onTouchEvent();
         }
-        hide();
+
+        if (dismissOnTouch) {
+            if (dismissListener != null) {
+                dismissListener.onDismiss();
+            }
+            hide();
+        }
         return !isTouchInCircle(event);
     }
 
@@ -383,6 +425,11 @@ public class ShowCaseView extends FrameLayout {
         void onDismiss();
     }
 
+    public interface TouchListener {
+
+        void onTouchEvent();
+    }
+
     public static class Builder {
 
         private Context context;
@@ -392,6 +439,9 @@ public class ShowCaseView extends FrameLayout {
         private ShowCaseRadius radius = new Radius(128F);
         private TextView contentView;
         private String contentText;
+        private boolean dismissOnTouch;
+        @Nullable
+        private TouchListener touchListener;
         private DismissListener dismissListener;
         private ShowCasePosition position = new Position(
                 new PointF(0F, 0F)
@@ -421,6 +471,19 @@ public class ShowCaseView extends FrameLayout {
             return this;
         }
 
+        /**
+         * True to dismiss the card on touch/click. True by default.
+         */
+        public Builder dismissOnTouch(boolean dismissOnTouch) {
+            this.dismissOnTouch = dismissOnTouch;
+            return this;
+        }
+
+        public Builder withTouchListener(TouchListener touchListener) {
+            this.touchListener = touchListener;
+            return this;
+        }
+
         @SuppressLint("InflateParams")
         public Builder withContent(String cardText) {
             this.contentView = (TextView) LayoutInflater.from(context).inflate(
@@ -437,6 +500,8 @@ public class ShowCaseView extends FrameLayout {
             view.dismissListener = this.dismissListener;
             view.typedRadius = this.radius;
             view.typedPosition = this.position;
+            view.dismissOnTouch = this.dismissOnTouch;
+            view.touchListener = this.touchListener;
             view.overlayPaint.setColor(ContextCompat.getColor(context, this.color));
 
             if (this.contentView != null && contentText != null) {
