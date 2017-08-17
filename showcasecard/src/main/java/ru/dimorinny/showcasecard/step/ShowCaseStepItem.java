@@ -11,6 +11,8 @@ import ru.dimorinny.showcasecard.position.ViewPosition;
  */
 public class ShowCaseStepItem {
 
+    // TODO test if submodule updating works
+
     /**
      * Position on the screen to point the bubble to, when viewToShowCase is not set.
      */
