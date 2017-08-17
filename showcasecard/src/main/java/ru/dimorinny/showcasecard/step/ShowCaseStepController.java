@@ -178,6 +178,10 @@ public class ShowCaseStepController {
         }
     }
 
+    public Context getContext() {
+        return context;
+    }
+
     /**
      * Adds on item to the list of items to display.
      *
