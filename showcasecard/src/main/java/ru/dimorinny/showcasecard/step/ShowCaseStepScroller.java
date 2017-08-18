@@ -1,5 +1,8 @@
 package ru.dimorinny.showcasecard.step;
 
+import android.graphics.Rect;
+import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.View;
 import android.widget.ScrollView;
 
@@ -10,10 +13,11 @@ import android.widget.ScrollView;
  */
 public class ShowCaseStepScroller {
 
+    @NonNull
     private ScrollView scrollView;
     private int lastTrackedScrollY;
 
-    public ShowCaseStepScroller(ScrollView scrollView) {
+    public ShowCaseStepScroller(@NonNull ScrollView scrollView) {
         this.scrollView = scrollView;
     }
 
@@ -35,29 +39,42 @@ public class ShowCaseStepScroller {
      */
     public void scrollToShowCaseStepItem(ShowCaseStepItem showCaseItem, OnCompleteListener onCompleteListener) {
 
-        View measureView = showCaseItem.getViewToShowCase();
-
-        if (measureView == null) {
-            onCompleteListener.onComplete();
-            return;
-        }
-
-        if (scrollView.getChildCount() > 0 &&
-                measureView.getParent() != scrollView.getChildAt(0)) {
-            // view has another parent in between it and the scrolled content root, measure from the parent:
-            measureView = (View) measureView.getParent();
-        }
-        int scrollToY = measureView.getTop();
-
-        // put the item in the middle:
-        scrollToY -= (scrollView.getHeight() / 2);
+        int scrollToY = getPositionYToScrollTo(showCaseItem);
 
         if (scrollToY < 0) {
             scrollToY = 0;
         }
 
         scrollView.smoothScrollBy(0, scrollToY - scrollView.getScrollY());
+
         detectScrollFinished(() -> onCompleteListener.onComplete());
+    }
+
+    /**
+     * Returns the Y position we have to scroll to to put this showCaseItem in the middle of the screen.
+     *
+     * @param showCaseItem showcase item to calculate for.
+     * @return positionY to scroll to
+     */
+    private int getPositionYToScrollTo(ShowCaseStepItem showCaseItem) {
+
+        View view = showCaseItem.getViewToShowCase();
+
+        if (view == null) {
+            Log.e("ShowCase", "item.scrollToView is true, but you attached a NULL view. Set a view on this item if you want to scroll.");
+            return 0;
+        }
+
+        // get the top of the item relative to the ScrollView:
+        Rect offsetViewBounds = new Rect();
+        view.getDrawingRect(offsetViewBounds);
+        scrollView.offsetDescendantRectToMyCoords(view, offsetViewBounds);
+        int relativeTop = offsetViewBounds.top;
+
+        // put the item in the middle of the screen:
+        int scrollToY = relativeTop - (scrollView.getHeight() / 2);
+
+        return scrollToY;
     }
 
     private void detectScrollFinished(OnScrollStoppedListener onScrollStoppedListener) {
