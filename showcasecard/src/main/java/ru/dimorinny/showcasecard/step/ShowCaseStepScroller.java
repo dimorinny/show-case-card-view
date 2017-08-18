@@ -36,8 +36,14 @@ public class ShowCaseStepScroller {
     public void scrollToShowCaseStepItem(ShowCaseStepItem showCaseItem, OnCompleteListener onCompleteListener) {
 
         View measureView = showCaseItem.getViewToShowCase();
-        //noinspection ConstantConditions
-        if (measureView.getParent() != scrollView.getChildAt(0)) {
+
+        if (measureView == null) {
+            onCompleteListener.onComplete();
+            return;
+        }
+
+        if (scrollView.getChildCount() > 0 &&
+                measureView.getParent() != scrollView.getChildAt(0)) {
             // view has another parent in between it and the scrolled content root, measure from the parent:
             measureView = (View) measureView.getParent();
         }
