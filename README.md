@@ -29,21 +29,21 @@ dependencies {
 
 You can show a ShowCase on your activity or fragment using the below code.
 
-To display a list of steps:
+To display a list of (click-through) steps:
 ```java
-new ShowCaseStepController.Builder(MainActivity.this) // Activity or Fragment
-    .addItem(new ShowCaseStepItem(new Center(), "Message at center"))
-    .addItem(new ShowCaseStepItem(view, "Message at View"))
+new ShowCaseStepDisplayer.Builder(MainActivity.this) // Activity or Fragment
+    .addStep(new ShowCaseStepItem(new Center(), "Message at center"))
+    .addStep(new ShowCaseStepItem(view, "Message at View"))
     .build().start();
 ```
 
 To auto-scroll when the view is off-screen:
 
 ```java
-new ShowCaseStepController.Builder(MainActivity.this) // Activity or Fragment
+new ShowCaseStepDisplayer.Builder(MainActivity.this) // Activity or Fragment
     .withScrollView(scrollView)
-    .addItem(new ShowCaseStepItem(view, "Message at View to scroll to", true))
-    .addItem(new ShowCaseStepItem(new TopLeft(), "Message at TopLeft"))
+    .addStep(new ShowCaseStepItem(view, "Message at View to scroll to", true))
+    .addStep(new ShowCaseStepItem(new TopLeft(), "Message at TopLeft"))
     .build().start();
 ```
 

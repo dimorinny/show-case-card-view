@@ -18,8 +18,8 @@ import ru.dimorinny.showcasecard.position.TopRightToolbar;
 import ru.dimorinny.showcasecard.position.ViewPosition;
 import ru.dimorinny.showcasecard.radius.Radius;
 import ru.dimorinny.showcasecard.radius.ShowCaseRadius;
-import ru.dimorinny.showcasecard.step.ShowCaseStepController;
-import ru.dimorinny.showcasecard.step.ShowCaseStepItem;
+import ru.dimorinny.showcasecard.step.ShowCaseStepDisplayer;
+import ru.dimorinny.showcasecard.step.ShowCaseStep;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -59,13 +59,13 @@ public class MainActivity extends AppCompatActivity {
 
     private void displayListOfSteps() {
 
-        new ShowCaseStepController.Builder(this)
+        new ShowCaseStepDisplayer.Builder(this)
                 .withScrollView(scrollView)
-                .addItem(new ShowCaseStepItem(new Center(), "This is the center of the screen. Tap anywhere to continue."))
-                .addItem(new ShowCaseStepItem(listOfSteps, "This is the button you just clicked."))
-                .addItem(new ShowCaseStepItem(dummyViewToScrollTo, "A dummy item to auto-scroll to.",
+                .addStep(new ShowCaseStep(new Center(), "This is the center of the screen. Tap anywhere to continue."))
+                .addStep(new ShowCaseStep(listOfSteps, "This is the button you just clicked."))
+                .addStep(new ShowCaseStep(dummyViewToScrollTo, "A dummy item to auto-scroll to.",
                         true))
-                .addItem(new ShowCaseStepItem(topLeft, "We end our showcase at the top button.", true))
+                .addStep(new ShowCaseStep(topLeft, "We end our showcase at the top button.", true))
                 .build().start();
     }
 

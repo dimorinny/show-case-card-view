@@ -9,7 +9,7 @@ import android.widget.ScrollView;
 /**
  * Created by Frank on 2017/08/17.
  * <p>
- * Handles scrolling to a {@link ShowCaseStepItem} if needed.
+ * Handles scrolling to a {@link ShowCaseStep} if needed.
  */
 public class ShowCaseStepScroller {
 
@@ -37,7 +37,7 @@ public class ShowCaseStepScroller {
      * @param showCaseItem
      * @param onCompleteListener
      */
-    public void scrollToShowCaseStepItem(ShowCaseStepItem showCaseItem, OnCompleteListener onCompleteListener) {
+    public void scrollToShowCaseStepItem(ShowCaseStep showCaseItem, OnCompleteListener onCompleteListener) {
 
         int scrollToY = getPositionYToScrollTo(showCaseItem);
 
@@ -56,7 +56,7 @@ public class ShowCaseStepScroller {
      * @param showCaseItem showcase item to calculate for.
      * @return positionY to scroll to
      */
-    private int getPositionYToScrollTo(ShowCaseStepItem showCaseItem) {
+    private int getPositionYToScrollTo(ShowCaseStep showCaseItem) {
 
         View view = showCaseItem.getViewToShowCase();
 
