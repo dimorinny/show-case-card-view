@@ -27,26 +27,27 @@ dependencies {
 
 ## Usage
 
-You can show a ShowCase (one item or a list of steps) on your activity or fragment using the below code.
+You can show a ShowCase on your activity or fragment using the below code.
 
-For a list of steps:
+To display a list of steps:
 ```java
-ShowCaseStepController stepController = new ShowCaseStepController(MainActivity.this); // Activity or Fragment
-stepController.addItem(new ShowCaseStepItem(new Center(), "This is the center of the screen. Tap anywhere to continue."));
-stepController.addItem(new ShowCaseStepItem(viewToShowCase, "This points to a View's location. Tap to end the show case."));
-stepController.start();
+new ShowCaseStepController.Builder(MainActivity.this) // Activity or Fragment
+    .addItem(new ShowCaseStepItem(new Center(), "Message at center"))
+    .addItem(new ShowCaseStepItem(view, "Message at View"))
+    .build().start();
 ```
 
-or if you want to include an auto-scroll if the target view is off-screen:
+To auto-scroll when the view is off-screen:
 
 ```java
-ShowCaseStepController stepController = new ShowCaseStepController(MainActivity.this, scrollView); // Activity or Fragment + ScrollView
-stepController.addItem(new ShowCaseStepItem(new Center(), "This is the center of the screen. Tap anywhere to continue."));
-stepController.addItem(new ShowCaseStepItem(viewToShowCase, "This View will be scrolled to if needed. Tap to end the show case.", true));
-stepController.start();
+new ShowCaseStepController.Builder(MainActivity.this) // Activity or Fragment
+    .withScrollView(scrollView)
+    .addItem(new ShowCaseStepItem(view, "Message at View to scroll to", true))
+    .addItem(new ShowCaseStepItem(new TopLeft(), "Message at TopLeft"))
+    .build().start();
 ```
 
-or you can just display a single item with:
+To display a single item:
 
 ```java
 new ShowCaseView.Builder(MainActivity.this)

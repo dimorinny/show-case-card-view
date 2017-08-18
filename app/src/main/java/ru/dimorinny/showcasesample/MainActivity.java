@@ -59,13 +59,14 @@ public class MainActivity extends AppCompatActivity {
 
     private void displayListOfSteps() {
 
-        ShowCaseStepController stepController = new ShowCaseStepController(this, scrollView);
-        stepController.addItem(new ShowCaseStepItem(new Center(), "This is the center of the screen. Tap anywhere to continue."));
-        stepController.addItem(new ShowCaseStepItem(listOfSteps, "This is the button you just clicked."));
-        stepController.addItem(new ShowCaseStepItem(dummyViewToScrollTo, "A dummy item to auto-scroll to.",
-                true));
-        stepController.addItem(new ShowCaseStepItem(topLeft, "We end our showcase at the top button.", true));
-        stepController.start();
+        new ShowCaseStepController.Builder(this)
+                .withScrollView(scrollView)
+                .addItem(new ShowCaseStepItem(new Center(), "This is the center of the screen. Tap anywhere to continue."))
+                .addItem(new ShowCaseStepItem(listOfSteps, "This is the button you just clicked."))
+                .addItem(new ShowCaseStepItem(dummyViewToScrollTo, "A dummy item to auto-scroll to.",
+                        true))
+                .addItem(new ShowCaseStepItem(topLeft, "We end our showcase at the top button.", true))
+                .build().start();
     }
 
     private void initButtons() {

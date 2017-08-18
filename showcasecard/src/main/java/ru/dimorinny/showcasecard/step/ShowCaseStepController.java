@@ -27,12 +27,6 @@ public class ShowCaseStepController {
     private Activity activity;
     @Nullable
     private Fragment fragment;
-    /**
-     * ScrollView used on all {@link ShowCaseStepItem}'s that dictate
-     * scrolling on activation.
-     */
-    @Nullable
-    private ScrollView scrollView;
 
     private float showCaseRadius;
 
@@ -40,6 +34,8 @@ public class ShowCaseStepController {
      * All items to be displayed.
      */
     private List<ShowCaseStepItem> items = new ArrayList<>();
+
+    @Nullable
     private ShowCaseStepScroller showCaseStepScroller;
 
     /**
@@ -50,48 +46,29 @@ public class ShowCaseStepController {
     @Nullable
     private ShowCaseView showCaseView;
 
-    public ShowCaseStepController(@NonNull Fragment fragment) {
-        this.fragment = fragment;
-        this.context = fragment.getContext();
-    }
-
-    public ShowCaseStepController(@NonNull Activity activity) {
-        this.activity = activity;
-        this.context = activity;
-    }
-
     /**
      * @param scrollView scrollView to use on all {@link ShowCaseStepItem}'s that dictate
      *                   scrolling on activation.
      */
-    public ShowCaseStepController(@NonNull Fragment fragment, @NonNull ScrollView scrollView) {
-        this.fragment = fragment;
-        this.scrollView = scrollView;
-        this.context = fragment.getContext();
+    private ShowCaseStepController(@Nullable Activity activity, @Nullable Fragment fragment, @Nullable ScrollView scrollView) {
 
-        showCaseStepScroller = new ShowCaseStepScroller(scrollView);
-    }
-
-    /**
-     * @param scrollView scrollView to use on all {@link ShowCaseStepItem}'s that dictate
-     *                   scrolling on activation.
-     */
-    public ShowCaseStepController(@NonNull Activity activity, @NonNull ScrollView scrollView) {
         this.activity = activity;
-        this.scrollView = scrollView;
-        this.context = activity;
+        this.fragment = fragment;
 
-        showCaseStepScroller = new ShowCaseStepScroller(scrollView);
+        //noinspection ConstantConditions
+        this.context = activity != null ? activity : fragment.getContext();
+        showCaseRadius = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 70,
+                context.getResources().getDisplayMetrics());
+
+        if (scrollView != null) {
+            showCaseStepScroller = new ShowCaseStepScroller(scrollView);
+        }
     }
 
     /**
      * Starts the tip-flow. Toggles (on click) through all help items on this page.
      */
     public void start() {
-
-        showCaseRadius = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 70,
-                context.getResources().getDisplayMetrics());
-
         tryShowNextTip();
     }
 
@@ -180,6 +157,7 @@ public class ShowCaseStepController {
         }
     }
 
+    @SuppressWarnings("unused")
     public Context getContext() {
         return context;
     }
@@ -189,6 +167,7 @@ public class ShowCaseStepController {
      *
      * @param item
      */
+    @SuppressWarnings("unused")
     public void addItem(ShowCaseStepItem item) {
         items.add(item);
     }
@@ -200,5 +179,60 @@ public class ShowCaseStepController {
      */
     public void setItems(List<ShowCaseStepItem> items) {
         this.items = items;
+    }
+
+    public static class Builder {
+
+        @Nullable
+        private Activity activity;
+        @Nullable
+        private Fragment fragment;
+        /**
+         * ScrollView used on all {@link ShowCaseStepItem}'s that used to scroll to the View
+         * on activation.
+         */
+        @Nullable
+        private ScrollView scrollView;
+
+        private List<ShowCaseStepItem> items = new ArrayList<>();
+
+        @SuppressWarnings("unused")
+        public Builder(@NonNull Fragment fragment) {
+            this.fragment = fragment;
+        }
+
+        @SuppressWarnings("unused")
+        public Builder(@NonNull Activity activity) {
+            this.activity = activity;
+        }
+
+        /**
+         * ScrollView used on all {@link ShowCaseStepItem}'s to scroll to the View
+         * on activation.
+         */
+        public Builder withScrollView(@Nullable ScrollView scrollView) {
+            this.scrollView = scrollView;
+            return this;
+        }
+
+        /**
+         * Adds on item to the list of items to display.
+         *
+         * @param item
+         */
+        public Builder addItem(ShowCaseStepItem item) {
+            items.add(item);
+            return this;
+        }
+
+        public ShowCaseStepController build() {
+
+            ShowCaseStepController stepController =
+                    new ShowCaseStepController(activity, fragment, scrollView);
+
+            stepController.setItems(items);
+
+            return stepController;
+        }
     }
 }
