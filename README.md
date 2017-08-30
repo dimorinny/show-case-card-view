@@ -35,12 +35,12 @@ new ShowCaseStepDisplayer.Builder(MainActivity.this)
     .build().start();
 ```
 
-To auto-scroll when the view is off-screen:
+Use withScrollView() if some step's target Views could be inside a ScrollView, they will be auto-scrolled to:
 
 ```java
 new ShowCaseStepDisplayer.Builder(MainActivity.this)
     .withScrollView(scrollView)
-    .addStep(new ShowCaseStepItem(view, "Message at View to scroll to", true))
+    .addStep(new ShowCaseStepItem(view, "Message at View to scroll to"))
     .addStep(new ShowCaseStepItem(new TopLeft(), "Message at TopLeft"))
     .build().start();
 ```

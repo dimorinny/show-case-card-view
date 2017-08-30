@@ -1,9 +1,7 @@
 package ru.dimorinny.showcasecard.step;
 
-import android.graphics.Rect;
+import android.graphics.Point;
 import android.support.annotation.NonNull;
-import android.util.Log;
-import android.view.View;
 import android.widget.ScrollView;
 
 /**
@@ -39,42 +37,17 @@ public class ShowCaseStepScroller {
      */
     public void scrollToShowCaseStepItem(ShowCaseStep showCaseItem, OnCompleteListener onCompleteListener) {
 
-        int scrollToY = getPositionYToScrollTo(showCaseItem);
+        Point scrollTo = showCaseItem.getPosition().getScrollPosition(scrollView);
 
-        if (scrollToY < 0) {
-            scrollToY = 0;
+        if (scrollTo == null) {
+            // no scroll needed
+            onCompleteListener.onComplete();
+            return;
         }
 
-        scrollView.smoothScrollBy(0, scrollToY - scrollView.getScrollY());
+        scrollView.smoothScrollBy(scrollTo.x, scrollTo.y - scrollView.getScrollY());
 
         detectScrollFinished(() -> onCompleteListener.onComplete());
-    }
-
-    /**
-     * Returns the Y position we have to scroll to to put this showCaseItem in the middle of the screen.
-     *
-     * @param showCaseItem showcase item to calculate for.
-     * @return positionY to scroll to
-     */
-    private int getPositionYToScrollTo(ShowCaseStep showCaseItem) {
-
-        View view = showCaseItem.getViewToShowCase();
-
-        if (view == null) {
-            Log.e("ShowCase", "item.scrollToView is true, but you attached a NULL view. Set a view on this item if you want to scroll.");
-            return 0;
-        }
-
-        // get the top of the item relative to the ScrollView:
-        Rect offsetViewBounds = new Rect();
-        view.getDrawingRect(offsetViewBounds);
-        scrollView.offsetDescendantRectToMyCoords(view, offsetViewBounds);
-        int relativeTop = offsetViewBounds.top;
-
-        // put the item in the middle of the screen:
-        int scrollToY = relativeTop - (scrollView.getHeight() / 2);
-
-        return scrollToY;
     }
 
     private void detectScrollFinished(OnScrollStoppedListener onScrollStoppedListener) {
