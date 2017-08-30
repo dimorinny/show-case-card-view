@@ -106,7 +106,8 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1000dp"/>
+            android:layout_height="1000dp"
+            />
 
         <TextView
             android:id="@+id/dummy_view_to_scroll_to"
