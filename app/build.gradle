@@ -1,12 +1,18 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    
+    compileSdkVersion 26
+    buildToolsVersion "26.0.1"
     defaultConfig {
         applicationId "ru.dimorinny.showcasesample"
-        minSdkVersion 16
-        targetSdkVersion 25
+        minSdkVersion 15
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -19,7 +25,11 @@ android {
     }
 }
 
+repositories {
+    google()
+}
+
 dependencies {
-    compile project(':showcasecard')
-    compile 'com.android.support:appcompat-v7:25.3.1'
+    implementation project(':showcasecard')
+    implementation 'com.android.support:appcompat-v7:26.0.1'
 }

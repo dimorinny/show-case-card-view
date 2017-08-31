@@ -1,6 +1,4 @@
-<div align="center">
-	<img src="https://raw.githubusercontent.com/dimorinny/show-case-card-view/master/art/logo.png">
-</div>
+![Demo](https://github.com/dimorinny/show-case-card-view/blob/master/art/demo.gif?raw=true)
 
 [![](https://jitpack.io/v/dimorinny/show-case-card-view.svg)](https://jitpack.io/#dimorinny/show-case-card-view)
 
@@ -27,15 +25,33 @@ dependencies {
 
 ## Usage
 
-You can show this view on your activity or fragment using this code:
+You can display a ShowCase on your activity or fragment using the below code.
+
+To display a list of (click-through) steps:
+```java
+new ShowCaseStepDisplayer.Builder(MainActivity.this)
+    .addStep(new ShowCaseStepItem(new Center(), "Message at center"))
+    .addStep(new ShowCaseStepItem(view, "Message at View"))
+    .build().start();
+```
+
+Use withScrollView() if some step's target Views could be inside a ScrollView, they will be auto-scrolled to:
+
+```java
+new ShowCaseStepDisplayer.Builder(MainActivity.this)
+    .withScrollView(scrollView)
+    .addStep(new ShowCaseStepItem(view, "Message at View to scroll to"))
+    .addStep(new ShowCaseStepItem(new TopLeft(), "Message at TopLeft"))
+    .build().start();
+```
+
+To display a single item:
 
 ```java
 new ShowCaseView.Builder(MainActivity.this)
     .withTypedPosition(new TopLeft())
     .withTypedRadius(new Radius(186F))
-    .withContent(
-            "This is hello world!"
-    )
+    .withContent("This is hello world!")
     .build()
     .show(this);
 ```
@@ -50,14 +66,12 @@ new ShowCaseView.Builder(MainActivity.this)
 * `TopLeftToolbar()`
 * `TopRightToolbar()`
 * `ViewPosition(View view)`
+* `Center()`
+* `BottomCenter()`
 
 **Available radiuses:**
 
 * `Radius(float radius)`
 * `ViewRadius(View view)`
 
-For more complication usage - see [example](https://github.com/dimorinny/show-case-card-view/blob/master/app/src/main/java/ru/dimorinny/showcasesample/MainActivity.java).
-
-## Demo
-
-![Demo](https://github.com/dimorinny/show-case-card-view/blob/master/art/demo.gif?raw=true)
+For more complicated usage - see [example](https://github.com/dimorinny/show-case-card-view/blob/master/app/src/main/java/ru/dimorinny/showcasesample/MainActivity.java).
