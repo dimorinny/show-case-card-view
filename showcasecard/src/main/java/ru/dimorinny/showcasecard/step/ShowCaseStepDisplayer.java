@@ -93,6 +93,10 @@ public class ShowCaseStepDisplayer {
      */
     private void tryShowNextTip() {
 
+        if (!isContextActive()) {
+            return;
+        }
+
         if (currentlyDisplayedTipIndex >= items.size() - 1) {
 
             // end of tips reached.
@@ -132,6 +136,10 @@ public class ShowCaseStepDisplayer {
     }
 
     private void doDisplayTip(ShowCaseStep item) {
+
+        if (!isContextActive()) {
+            return;
+        }
 
         if (showCaseView != null) {
             // completely remove old view now:
@@ -182,6 +190,18 @@ public class ShowCaseStepDisplayer {
     @SuppressWarnings("unused")
     public void setSteps(List<ShowCaseStep> items) {
         this.items = items;
+    }
+
+    /**
+     * Returns true if the attached Context is still active / not shutting down.
+     */
+    private boolean isContextActive() {
+        if (fragment != null) {
+            return fragment.isAdded();
+        } else if (activity != null) {
+            return !activity.isFinishing();
+        }
+        return true;
     }
 
     public static class Builder {
