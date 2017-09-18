@@ -193,9 +193,9 @@ public class ShowCaseStepDisplayer {
     }
 
     /**
-     * Returns true if the attached Context is still active and not shutting down.
+     * Returns true if the attached Context is still active / not shutting down.
      */
-    public boolean isContextActive() {
+    private boolean isContextActive() {
         if (fragment != null) {
             return fragment.isAdded();
         } else if (activity != null) {
