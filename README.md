@@ -19,7 +19,7 @@ Add dependency to your module's build.gradle file:
 
 ```
 dependencies {
-    implementation 'com.github.dimorinny:show-case-card-view:0.0.2'
+    implementation 'com.github.dimorinny:show-case-card-view:0.0.3'
 }
 ```
 
