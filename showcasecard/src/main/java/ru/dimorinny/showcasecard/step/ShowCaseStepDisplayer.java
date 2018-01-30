@@ -113,7 +113,7 @@ public class ShowCaseStepDisplayer {
      *
      * @param item tip details to display.
      */
-    private void displayTip(ShowCaseStep item) {
+    private void displayTip(final ShowCaseStep item) {
 
         if (item.getPosition().getScrollPosition(scrollView) != null
                 && showCaseStepScroller != null) {
@@ -125,8 +125,14 @@ public class ShowCaseStepDisplayer {
             }
 
             // scroll first, after that display the item:
-            showCaseStepScroller.scrollToShowCaseStepItem(item,
-                    () -> doDisplayTip(item)
+            showCaseStepScroller.scrollToShowCaseStepItem(
+                    item,
+                    new ShowCaseStepScroller.OnCompleteListener() {
+                        @Override
+                        public void onComplete() {
+                            doDisplayTip(item);
+                        }
+                    }
             );
 
         } else {
@@ -151,10 +157,12 @@ public class ShowCaseStepDisplayer {
                 .withTypedPosition(item.getPosition())
                 .withTypedRadius(new Radius(showCaseRadius))
                 .dismissOnTouch(false)
-                .withTouchListener(() -> {
-
-                    if (myTipIndex == currentlyDisplayedTipIndex) {
-                        tryShowNextTip();
+                .withTouchListener(new ShowCaseView.TouchListener() {
+                    @Override
+                    public void onTouchEvent() {
+                        if (myTipIndex == currentlyDisplayedTipIndex) {
+                            tryShowNextTip();
+                        }
                     }
                 })
                 .withContent(item.getMessage())

@@ -35,7 +35,7 @@ public class ShowCaseStepScroller {
      * @param showCaseItem
      * @param onCompleteListener
      */
-    public void scrollToShowCaseStepItem(ShowCaseStep showCaseItem, OnCompleteListener onCompleteListener) {
+    public void scrollToShowCaseStepItem(ShowCaseStep showCaseItem, final OnCompleteListener onCompleteListener) {
 
         Point scrollTo = showCaseItem.getPosition().getScrollPosition(scrollView);
 
@@ -47,10 +47,15 @@ public class ShowCaseStepScroller {
 
         scrollView.smoothScrollBy(scrollTo.x, scrollTo.y - scrollView.getScrollY());
 
-        detectScrollFinished(() -> onCompleteListener.onComplete());
+        detectScrollFinished(new OnScrollStoppedListener() {
+            @Override
+            public void onScrollStopped() {
+                onCompleteListener.onComplete();
+            }
+        });
     }
 
-    private void detectScrollFinished(OnScrollStoppedListener onScrollStoppedListener) {
+    private void detectScrollFinished(final OnScrollStoppedListener onScrollStoppedListener) {
 
         lastTrackedScrollY = scrollView.getScrollY();
 
@@ -59,12 +64,10 @@ public class ShowCaseStepScroller {
         scrollView.postDelayed(new Runnable() {
 
             public void run() {
-
                 int newPosition = scrollView.getScrollY();
+
                 if (lastTrackedScrollY - newPosition == 0) {
-
                     onScrollStoppedListener.onScrollStopped();
-
                 } else {
                     lastTrackedScrollY = scrollView.getScrollY();
                     scrollView.postDelayed(this, checkIntervalMs);
