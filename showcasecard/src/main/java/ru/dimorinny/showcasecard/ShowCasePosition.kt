@@ -4,25 +4,23 @@ import android.app.Activity
 import android.content.res.Configuration
 import android.graphics.PointF
 import android.view.View
-import ru.dimorinny.showcasecard.ext.NavigationBarPosition
 import ru.dimorinny.showcasecard.ext.getAbsoluteCenterPosition
-import ru.dimorinny.showcasecard.ext.getOrientation
-import ru.dimorinny.showcasecard.ext.navigationBarHeight
-import ru.dimorinny.showcasecard.ext.navigationBarPosition
 import ru.dimorinny.showcasecard.ext.statusBarHeight
+import ru.dimorinny.showcasecard.util.ActivityUtils
+import ru.dimorinny.showcasecard.util.NavigationBarUtils
 
 sealed class ShowCasePosition {
 
     fun navigationBarMarginForRightOrientation(activity: Activity): Float
-        = if (activity.navigationBarPosition() == NavigationBarPosition.LEFT) {
+        = if (NavigationBarUtils.navigationBarPosition(activity) == NavigationBarUtils.NavigationBarPosition.LEFT) {
         0F
     } else {
-        activity.navigationBarHeight().toFloat()
+        NavigationBarUtils.navigationBarHeight(activity).toFloat()
     }
 
     fun navigationBarMarginForLeftOrientation(activity: Activity): Float
-        = if (activity.navigationBarPosition() == NavigationBarPosition.LEFT) {
-        activity.navigationBarHeight().toFloat()
+        = if (NavigationBarUtils.navigationBarPosition(activity) == NavigationBarUtils.NavigationBarPosition.LEFT) {
+        NavigationBarUtils.navigationBarHeight(activity).toFloat()
     } else {
         0F
     }
@@ -45,7 +43,7 @@ sealed class ShowCasePosition {
     }
 
     class TopRight : ShowCasePosition() {
-        override fun getPosition(activity: Activity) = when (activity.getOrientation()) {
+        override fun getPosition(activity: Activity) = when (ActivityUtils.getOrientation(activity)) {
             Configuration.ORIENTATION_LANDSCAPE -> {
                 PointF(
                     activity.window.decorView.width.toFloat() - navigationBarMarginForRightOrientation(activity),
@@ -57,7 +55,7 @@ sealed class ShowCasePosition {
     }
 
     class BottomLeft : ShowCasePosition() {
-        override fun getPosition(activity: Activity) = when (activity.getOrientation()) {
+        override fun getPosition(activity: Activity) = when (ActivityUtils.getOrientation(activity)) {
             Configuration.ORIENTATION_LANDSCAPE ->
                 PointF(
                     navigationBarMarginForLeftOrientation(activity),
@@ -67,14 +65,14 @@ sealed class ShowCasePosition {
             else ->
                 PointF(
                     0F,
-                    activity.window.decorView.height.toFloat() - activity.navigationBarHeight()
+                    activity.window.decorView.height.toFloat() - NavigationBarUtils.navigationBarHeight(activity).toFloat()
                 )
         }
     }
 
     class BottomRight : ShowCasePosition() {
         override fun getPosition(activity: Activity): PointF {
-            return when (activity.getOrientation()) {
+            return when (ActivityUtils.getOrientation(activity)) {
                 Configuration.ORIENTATION_LANDSCAPE -> {
                     PointF(
                         activity.window.decorView.width.toFloat() - navigationBarMarginForRightOrientation(activity),
@@ -85,14 +83,14 @@ sealed class ShowCasePosition {
                 else ->
                     PointF(
                         activity.window.decorView.width.toFloat(),
-                        activity.window.decorView.height.toFloat() - activity.navigationBarHeight()
+                        activity.window.decorView.height.toFloat() - NavigationBarUtils.navigationBarHeight(activity).toFloat()
                     )
             }
         }
     }
 
     class TopRightToolbar : ShowCasePosition() {
-        override fun getPosition(activity: Activity) = when (activity.getOrientation()) {
+        override fun getPosition(activity: Activity) = when (ActivityUtils.getOrientation(activity)) {
             Configuration.ORIENTATION_LANDSCAPE -> {
                 val navigationBarMargin = navigationBarMarginForRightOrientation(activity)
                 PointF(
