@@ -3,8 +3,8 @@ package ru.dimorinny.showcasesample;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import ru.dimorinny.showcasecard.ShowCasePosition;
 import ru.dimorinny.showcasecard.ShowCaseView;
+import ru.dimorinny.showcasecard.position.TopLeftToolbar;
 import ru.dimorinny.showcasecard.radius.ViewRadius;
 
 public class MainActivity extends AppCompatActivity {
@@ -17,11 +17,12 @@ public class MainActivity extends AppCompatActivity {
         new ShowCaseView.Builder(MainActivity.this)
 //                .withTypedPosition(new ShowCasePosition.BottomRight())
 //                .withTypedPosition(new ShowCasePosition.TopRightToolbar())
-                .withTypedPosition(
-                        new ShowCasePosition.ViewPosition(
-                                findViewById(R.id.hello_label)
-                        )
-                )
+//                .withTypedPosition(
+//                        new ViewPosition(
+//                                findViewById(R.id.hello_label)
+//                        )
+//                )
+                .withTypedPosition(new TopLeftToolbar())
                 .withTypedRadius(
                         new ViewRadius(
                                 findViewById(R.id.hello_label),

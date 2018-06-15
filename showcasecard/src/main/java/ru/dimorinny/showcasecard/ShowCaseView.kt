@@ -13,6 +13,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.TextView
+import ru.dimorinny.showcasecard.position.Position
+import ru.dimorinny.showcasecard.position.ShowCasePosition
+import ru.dimorinny.showcasecard.position.ViewPosition
 import ru.dimorinny.showcasecard.radius.Radius
 import ru.dimorinny.showcasecard.radius.ShowCaseRadius
 import ru.dimorinny.showcasecard.radius.ViewRadius
@@ -228,12 +231,12 @@ class ShowCaseView(context: Context) : FrameLayout(context) {
                         initCardOffsets(activity)
 
                         when {
-                            typedPosition is ShowCasePosition.ViewPosition
+                            typedPosition is ViewPosition
                                     || typedRadius is ViewRadius -> {
 
                                 MeasuredUtils.afterOrAlreadyMeasuredViews(
                                         listOf(
-                                                (typedPosition as? ShowCasePosition.ViewPosition)?.view,
+                                                (typedPosition as? ViewPosition)?.view,
                                                 (typedRadius as? ViewRadius)?.view
                                         ).filterNotNull(),
                                         object : MeasuredUtils.OnMeasuredHandler {
@@ -304,7 +307,7 @@ class ShowCaseView(context: Context) : FrameLayout(context) {
         }
 
         var color: Int = R.color.black65
-        var position: ShowCasePosition = ShowCasePosition.Position(PointF(0F, 0F))
+        var position: ShowCasePosition = Position(PointF(0F, 0F))
         var radius: ShowCaseRadius = DEFAULT_RADIUS
         var contentView: TextView? = null
         var contentText: String? = null

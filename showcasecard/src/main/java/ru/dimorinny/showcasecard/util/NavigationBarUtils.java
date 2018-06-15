@@ -53,4 +53,20 @@ public class NavigationBarUtils {
                 return NavigationBarPosition.UNKNOWN;
         }
     }
+
+    public static float navigationBarMarginForRightOrientation(Activity activity) {
+        if (NavigationBarUtils.navigationBarPosition(activity) == NavigationBarUtils.NavigationBarPosition.LEFT) {
+            return 0F;
+        } else {
+            return NavigationBarUtils.navigationBarHeight(activity);
+        }
+    }
+
+    public static float navigationBarMarginForLeftOrientation(Activity activity) {
+        if (NavigationBarUtils.navigationBarPosition(activity) == NavigationBarUtils.NavigationBarPosition.LEFT) {
+            return NavigationBarUtils.navigationBarHeight(activity);
+        } else {
+            return 0F;
+        }
+    }
 }
