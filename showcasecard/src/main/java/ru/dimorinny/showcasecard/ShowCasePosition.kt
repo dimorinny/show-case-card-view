@@ -4,22 +4,21 @@ import android.app.Activity
 import android.content.res.Configuration
 import android.graphics.PointF
 import android.view.View
-import ru.dimorinny.showcasecard.ext.getAbsoluteCenterPosition
-import ru.dimorinny.showcasecard.ext.statusBarHeight
 import ru.dimorinny.showcasecard.util.ActivityUtils
 import ru.dimorinny.showcasecard.util.NavigationBarUtils
+import ru.dimorinny.showcasecard.util.ViewUtils
 
 sealed class ShowCasePosition {
 
     fun navigationBarMarginForRightOrientation(activity: Activity): Float
-        = if (NavigationBarUtils.navigationBarPosition(activity) == NavigationBarUtils.NavigationBarPosition.LEFT) {
+            = if (NavigationBarUtils.navigationBarPosition(activity) == NavigationBarUtils.NavigationBarPosition.LEFT) {
         0F
     } else {
         NavigationBarUtils.navigationBarHeight(activity).toFloat()
     }
 
     fun navigationBarMarginForLeftOrientation(activity: Activity): Float
-        = if (NavigationBarUtils.navigationBarPosition(activity) == NavigationBarUtils.NavigationBarPosition.LEFT) {
+            = if (NavigationBarUtils.navigationBarPosition(activity) == NavigationBarUtils.NavigationBarPosition.LEFT) {
         NavigationBarUtils.navigationBarHeight(activity).toFloat()
     } else {
         0F
@@ -32,13 +31,14 @@ sealed class ShowCasePosition {
     }
 
     class ViewPosition(val view: View) : ShowCasePosition() {
-        override fun getPosition(activity: Activity): PointF = view.getAbsoluteCenterPosition()
+        override fun getPosition(activity: Activity): PointF
+                = ViewUtils.getAbsoluteCenterPosition(view)
     }
 
     class TopLeft : ShowCasePosition() {
         override fun getPosition(activity: Activity) = PointF(
-            navigationBarMarginForLeftOrientation(activity),
-            0F
+                navigationBarMarginForLeftOrientation(activity),
+                0F
         )
     }
 
@@ -46,8 +46,8 @@ sealed class ShowCasePosition {
         override fun getPosition(activity: Activity) = when (ActivityUtils.getOrientation(activity)) {
             Configuration.ORIENTATION_LANDSCAPE -> {
                 PointF(
-                    activity.window.decorView.width.toFloat() - navigationBarMarginForRightOrientation(activity),
-                    0F
+                        activity.window.decorView.width.toFloat() - navigationBarMarginForRightOrientation(activity),
+                        0F
                 )
             }
             else -> PointF(activity.window.decorView.width.toFloat(), 0F)
@@ -58,14 +58,14 @@ sealed class ShowCasePosition {
         override fun getPosition(activity: Activity) = when (ActivityUtils.getOrientation(activity)) {
             Configuration.ORIENTATION_LANDSCAPE ->
                 PointF(
-                    navigationBarMarginForLeftOrientation(activity),
-                    activity.window.decorView.height.toFloat()
+                        navigationBarMarginForLeftOrientation(activity),
+                        activity.window.decorView.height.toFloat()
                 )
 
             else ->
                 PointF(
-                    0F,
-                    activity.window.decorView.height.toFloat() - NavigationBarUtils.navigationBarHeight(activity).toFloat()
+                        0F,
+                        activity.window.decorView.height.toFloat() - NavigationBarUtils.navigationBarHeight(activity).toFloat()
                 )
         }
     }
@@ -75,15 +75,15 @@ sealed class ShowCasePosition {
             return when (ActivityUtils.getOrientation(activity)) {
                 Configuration.ORIENTATION_LANDSCAPE -> {
                     PointF(
-                        activity.window.decorView.width.toFloat() - navigationBarMarginForRightOrientation(activity),
-                        activity.window.decorView.height.toFloat()
+                            activity.window.decorView.width.toFloat() - navigationBarMarginForRightOrientation(activity),
+                            activity.window.decorView.height.toFloat()
                     )
                 }
 
                 else ->
                     PointF(
-                        activity.window.decorView.width.toFloat(),
-                        activity.window.decorView.height.toFloat() - NavigationBarUtils.navigationBarHeight(activity).toFloat()
+                            activity.window.decorView.width.toFloat(),
+                            activity.window.decorView.height.toFloat() - NavigationBarUtils.navigationBarHeight(activity).toFloat()
                     )
             }
         }
@@ -94,11 +94,14 @@ sealed class ShowCasePosition {
             Configuration.ORIENTATION_LANDSCAPE -> {
                 val navigationBarMargin = navigationBarMarginForRightOrientation(activity)
                 PointF(
-                    activity.window.decorView.width.toFloat() - navigationBarMargin,
-                    activity.statusBarHeight().toFloat()
+                        activity.window.decorView.width.toFloat() - navigationBarMargin,
+                        ActivityUtils.statusBarHeight(activity).toFloat()
                 )
             }
-            else -> PointF(activity.window.decorView.width.toFloat(), activity.statusBarHeight().toFloat())
+            else -> PointF(
+                    activity.window.decorView.width.toFloat(),
+                    ActivityUtils.statusBarHeight(activity).toFloat()
+            )
         }
     }
 

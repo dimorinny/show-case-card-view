@@ -13,9 +13,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.TextView
-import ru.dimorinny.showcasecard.ext.*
+import ru.dimorinny.showcasecard.radius.Radius
+import ru.dimorinny.showcasecard.radius.ShowCaseRadius
+import ru.dimorinny.showcasecard.radius.ViewRadius
 import ru.dimorinny.showcasecard.util.ActivityUtils
+import ru.dimorinny.showcasecard.util.MeasuredUtils
 import ru.dimorinny.showcasecard.util.NavigationBarUtils
+import ru.dimorinny.showcasecard.util.ViewUtils
 
 class ShowCaseView(context: Context) : FrameLayout(context) {
 
@@ -27,12 +31,12 @@ class ShowCaseView(context: Context) : FrameLayout(context) {
         private const val ANIMATION_START_DELAY = 200L
     }
 
-    private val CARD_PADDING_VERTICAL = convertDpToPx(16)
-    private val CARD_PADDING_HORIZONTAL = convertDpToPx(8)
-    private val CARD_TO_ARROW_OFFSET = convertDpToPx(25)
-    private val CARD_MIN_MARGIN = convertDpToPx(14)
+    private val CARD_PADDING_VERTICAL = ViewUtils.convertDpToPx(this, 16)
+    private val CARD_PADDING_HORIZONTAL = ViewUtils.convertDpToPx(this, 8)
+    private val CARD_TO_ARROW_OFFSET = ViewUtils.convertDpToPx(this, 25)
+    private val CARD_MIN_MARGIN = ViewUtils.convertDpToPx(this, 14)
 
-    private val CARD_ANIMATION_OFFSET = convertDpToPx(16)
+    private val CARD_ANIMATION_OFFSET = ViewUtils.convertDpToPx(this, 16)
 
     private val overlayPaint = Paint(Paint.ANTI_ALIAS_FLAG)
     private val circlePaint = Paint(Paint.ANTI_ALIAS_FLAG)
@@ -172,19 +176,24 @@ class ShowCaseView(context: Context) : FrameLayout(context) {
      * Add view if it not already exists
      */
     private fun show(container: ViewGroup) {
-        if (container.findViewWithType(ShowCaseView::class.java) == null) {
+        if (ViewUtils.findViewWithType(container, ShowCaseView::class.java) == null) {
             container.addView(this)
 
             val card = FrameLayout(context)
-            card.afterMeasured {
-                configureCard(card)
-                ObjectAnimator.ofFloat(this, CARD_ANIMATION_PROPERTY, CARD_ANIMATION_OFFSET.toFloat(), 0F)
-                        .apply {
-                            startDelay = ANIMATION_START_DELAY
-                            duration = CARD_ANIMATION_DURATION
+            MeasuredUtils.afterMeasured(
+                    card,
+                    object : MeasuredUtils.OnMeasuredHandler {
+                        override fun onMeasured() {
+                            configureCard(card)
+                            ObjectAnimator.ofFloat(this, CARD_ANIMATION_PROPERTY, CARD_ANIMATION_OFFSET.toFloat(), 0F)
+                                    .apply {
+                                        startDelay = ANIMATION_START_DELAY
+                                        duration = CARD_ANIMATION_DURATION
+                                    }
+                                    .start()
                         }
-                        .start()
-            }
+                    }
+            )
             addView(card)
 
             animate()
@@ -212,32 +221,38 @@ class ShowCaseView(context: Context) : FrameLayout(context) {
             container: ViewGroup,
             measuredView: View
     ) {
-        measuredView.afterOrAlreadyMeasured {
+        MeasuredUtils.afterMeasured(
+                measuredView,
+                object : MeasuredUtils.OnMeasuredHandler {
+                    override fun onMeasured() {
+                        initCardOffsets(activity)
 
-            initCardOffsets(activity)
+                        when {
+                            typedPosition is ShowCasePosition.ViewPosition
+                                    || typedRadius is ViewRadius -> {
 
-            when {
-                typedPosition is ShowCasePosition.ViewPosition
-                        || typedRadius is ShowCaseRadius.ViewRadius -> {
-
-                    afterOrAlreadyMeasuredViews(
-                            *listOf(
-                                    (typedPosition as? ShowCasePosition.ViewPosition)?.view,
-                                    (typedRadius as? ShowCaseRadius.ViewRadius)?.view
-                            ).filterNotNull().toTypedArray()
-                    ) {
-                        position = typedPosition.getPosition(activity)
-                        radius = typedRadius.getRadius()
-                        show(container)
+                                MeasuredUtils.afterOrAlreadyMeasuredViews(
+                                        listOf(
+                                                (typedPosition as? ShowCasePosition.ViewPosition)?.view,
+                                                (typedRadius as? ViewRadius)?.view
+                                        ).filterNotNull(),
+                                        object : MeasuredUtils.OnMeasuredHandler {
+                                            override fun onMeasured() {
+                                                position = typedPosition.getPosition(activity)
+                                                radius = typedRadius.getRadius()
+                                                show(container)
+                                            }
+                                        }
+                                )
+                            }
+                            else -> {
+                                position = typedPosition.getPosition(activity)
+                                radius = typedRadius.getRadius()
+                                show(container)
+                            }
+                        }
                     }
-                }
-                else -> {
-                    position = typedPosition.getPosition(activity)
-                    radius = typedRadius.getRadius()
-                    show(container)
-                }
-            }
-        }
+                })
     }
 
     override fun onDraw(canvas: Canvas) {
@@ -285,7 +300,7 @@ class ShowCaseView(context: Context) : FrameLayout(context) {
     class Builder(val activity: Activity) {
 
         companion object {
-            val DEFAULT_RADIUS = ShowCaseRadius.Radius(128F)
+            val DEFAULT_RADIUS = Radius(128F)
         }
 
         var color: Int = R.color.black65
