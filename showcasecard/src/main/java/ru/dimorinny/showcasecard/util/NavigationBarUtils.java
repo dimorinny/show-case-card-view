@@ -38,7 +38,10 @@ public class NavigationBarUtils {
 
     private static boolean hasNavigationBar(Activity activity) {
         int id = activity.getResources().getIdentifier("config_showNavigationBar", "bool", "android");
-        return id > 0 && activity.getResources().getBoolean(id);
+
+        return !(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP
+                && activity.findViewById(android.R.id.navigationBarBackground) == null) &&
+                id > 0 && activity.getResources().getBoolean(id);
     }
 
     private static NavigationBarPosition gravityToNavigationBarPosition(int gravity) {
