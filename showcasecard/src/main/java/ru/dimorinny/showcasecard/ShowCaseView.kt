@@ -24,6 +24,7 @@ import ru.dimorinny.showcasecard.util.MeasuredUtils
 import ru.dimorinny.showcasecard.util.NavigationBarUtils
 import ru.dimorinny.showcasecard.util.ViewUtils
 
+// TODO: public
 class ShowCaseView(context: Context) : FrameLayout(context) {
 
     companion object {
@@ -44,19 +45,19 @@ class ShowCaseView(context: Context) : FrameLayout(context) {
     private val overlayPaint = Paint(Paint.ANTI_ALIAS_FLAG)
     private val circlePaint = Paint(Paint.ANTI_ALIAS_FLAG)
 
-    private var dismissListener: (() -> Unit)? = null
+    var dismissListener: ShowCaseViewJava.DismissListener? = null
 
     private var hideAnimationPerforming = false
 
     private lateinit var position: PointF
-    private lateinit var typedPosition: ShowCasePosition
+    lateinit var typedPosition: ShowCasePosition
 
     private var radius: Float = -1F
-    private lateinit var typedRadius: ShowCaseRadius
+    lateinit var typedRadius: ShowCaseRadius
 
     private var cardRightOffset = 0
     private var cardLeftOffset = 0
-    private var overlayColor: Int = -1
+    var overlayColor: Int = -1
         set (value) {
             field = value
             overlayPaint.color = value
@@ -69,7 +70,8 @@ class ShowCaseView(context: Context) : FrameLayout(context) {
         initPaints()
     }
 
-    private fun setContent(contentView: TextView, text: String) {
+    // TODO: public
+    fun setContent(contentView: TextView, text: String) {
         cardContent = contentView
         cardContent.text = text
     }
@@ -265,7 +267,7 @@ class ShowCaseView(context: Context) : FrameLayout(context) {
     }
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
-        dismissListener?.invoke()
+        dismissListener?.onDismiss()
         hide()
         return !isTouchInCircle(event)
     }
@@ -311,13 +313,13 @@ class ShowCaseView(context: Context) : FrameLayout(context) {
         var radius: ShowCaseRadius = DEFAULT_RADIUS
         var contentView: TextView? = null
         var contentText: String? = null
-        var dismissListener: (() -> Unit)? = null
+        var dismissListener: ShowCaseViewJava.DismissListener? = null
 
         fun withTypedRadius(showCaseRadius: ShowCaseRadius): Builder = apply {
             radius = showCaseRadius
         }
 
-        fun withDismissListener(listener: () -> Unit): Builder = apply {
+        fun withDismissListener(listener: ShowCaseViewJava.DismissListener): Builder = apply {
             dismissListener = listener
         }
 
