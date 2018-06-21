@@ -3,7 +3,7 @@ package ru.dimorinny.showcasesample;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import ru.dimorinny.showcasecard.ShowCaseViewJava;
+import ru.dimorinny.showcasecard.ShowCaseView;
 import ru.dimorinny.showcasecard.position.TopLeftToolbar;
 import ru.dimorinny.showcasecard.radius.ViewRadius;
 
@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        new ShowCaseViewJava.Builder(MainActivity.this)
+        new ShowCaseView.Builder(MainActivity.this)
 //                .withTypedPosition(new ShowCasePosition.BottomRight())
 //                .withTypedPosition(new ShowCasePosition.TopRightToolbar())
 //                .withTypedPosition(
