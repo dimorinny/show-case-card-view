@@ -60,6 +60,4 @@ For more complication usage - see [example](https://github.com/dimorinny/show-ca
 
 ## Demo
 
-```
-// TODO: gif demo
-```
+![Demo](https://github.com/dimorinny/show-case-card-view/blob/master/art/demo.gif?raw=true)
