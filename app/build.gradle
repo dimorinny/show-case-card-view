@@ -1,6 +1,12 @@
 apply plugin: 'com.android.application'
 
 android {
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    
     compileSdkVersion 26
     buildToolsVersion "26.0.1"
     defaultConfig {
@@ -24,6 +30,6 @@ repositories {
 }
 
 dependencies {
-    compile project(':showcasecard')
-    compile 'com.android.support:appcompat-v7:26.0.1'
+    implementation project(':showcasecard')
+    implementation 'com.android.support:appcompat-v7:26.0.1'
 }
