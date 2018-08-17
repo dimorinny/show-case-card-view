@@ -141,8 +141,8 @@ public class ShowCaseStepController {
             }
 
             if (showCaseView != null) {
-                // remove last view
-                showCaseView.removeFromWindow();
+                // hide last card, just show dark overlay for now:
+                showCaseView.hideCard();
             }
 
             // scroll first, after that display the item:
@@ -158,11 +158,17 @@ public class ShowCaseStepController {
 
     private void doDisplayTip(ShowCaseStepItem item) {
 
+        if (showCaseView != null) {
+            // completely remove old view now:
+            showCaseView.hide();
+        }
+
         final int myTipIndex = currentlyDisplayedTipIndex;
         showCaseView = new ShowCaseView.Builder(context)
                 .withTypedPosition(item.getPosition())
                 .withTypedRadius(new Radius(showCaseRadius))
-                .withDismissListener(() -> {
+                .dismissOnTouch(false)
+                .withTouchListener(() -> {
 
                     if (myTipIndex == currentlyDisplayedTipIndex) {
                         tryShowNextTip();
