@@ -17,9 +17,9 @@ import ru.dimorinny.showcasecard.radius.Radius;
 /**
  * Created by Frank on 2017/08/16.
  * <p>
- * Controls the displaying of a list of {@link ShowCaseStepItem}'s one by one.
+ * Controls the displaying of a list of {@link ShowCaseStep}'s one by one.
  */
-public class ShowCaseStepController {
+public class ShowCaseStepDisplayer {
 
     private Context context;
 
@@ -33,7 +33,7 @@ public class ShowCaseStepController {
     /**
      * All items to be displayed.
      */
-    private List<ShowCaseStepItem> items = new ArrayList<>();
+    private List<ShowCaseStep> items = new ArrayList<>();
 
     @Nullable
     private ShowCaseStepScroller showCaseStepScroller;
@@ -47,10 +47,10 @@ public class ShowCaseStepController {
     private ShowCaseView showCaseView;
 
     /**
-     * @param scrollView scrollView to use on all {@link ShowCaseStepItem}'s that dictate
+     * @param scrollView scrollView to use on all {@link ShowCaseStep}'s that dictate
      *                   scrolling on activation.
      */
-    private ShowCaseStepController(@Nullable Activity activity, @Nullable Fragment fragment, @Nullable ScrollView scrollView) {
+    private ShowCaseStepDisplayer(@Nullable Activity activity, @Nullable Fragment fragment, @Nullable ScrollView scrollView) {
 
         this.activity = activity;
         this.fragment = fragment;
@@ -106,7 +106,7 @@ public class ShowCaseStepController {
      *
      * @param item tip details to display.
      */
-    private void displayTip(ShowCaseStepItem item) {
+    private void displayTip(ShowCaseStep item) {
 
         if (item.doScrollToView()
                 && item.getViewToShowCase() != null
@@ -129,7 +129,7 @@ public class ShowCaseStepController {
         }
     }
 
-    private void doDisplayTip(ShowCaseStepItem item) {
+    private void doDisplayTip(ShowCaseStep item) {
 
         if (showCaseView != null) {
             // completely remove old view now:
@@ -168,7 +168,7 @@ public class ShowCaseStepController {
      * @param item
      */
     @SuppressWarnings("unused")
-    public void addItem(ShowCaseStepItem item) {
+    public void addStep(ShowCaseStep item) {
         items.add(item);
     }
 
@@ -177,7 +177,8 @@ public class ShowCaseStepController {
      *
      * @param items
      */
-    public void setItems(List<ShowCaseStepItem> items) {
+    @SuppressWarnings("unused")
+    public void setSteps(List<ShowCaseStep> items) {
         this.items = items;
     }
 
@@ -188,13 +189,13 @@ public class ShowCaseStepController {
         @Nullable
         private Fragment fragment;
         /**
-         * ScrollView used on all {@link ShowCaseStepItem}'s that used to scroll to the View
+         * ScrollView used on all {@link ShowCaseStep}'s that used to scroll to the View
          * on activation.
          */
         @Nullable
         private ScrollView scrollView;
 
-        private List<ShowCaseStepItem> items = new ArrayList<>();
+        private List<ShowCaseStep> items = new ArrayList<>();
 
         @SuppressWarnings("unused")
         public Builder(@NonNull Fragment fragment) {
@@ -207,7 +208,7 @@ public class ShowCaseStepController {
         }
 
         /**
-         * ScrollView used on all {@link ShowCaseStepItem}'s to scroll to the View
+         * ScrollView used on all {@link ShowCaseStep}'s to scroll to the View
          * on activation.
          */
         public Builder withScrollView(@Nullable ScrollView scrollView) {
@@ -220,17 +221,19 @@ public class ShowCaseStepController {
          *
          * @param item
          */
-        public Builder addItem(ShowCaseStepItem item) {
+        @SuppressWarnings("unused")
+        public Builder addStep(ShowCaseStep item) {
             items.add(item);
             return this;
         }
 
-        public ShowCaseStepController build() {
+        @SuppressWarnings("unused")
+        public ShowCaseStepDisplayer build() {
 
-            ShowCaseStepController stepController =
-                    new ShowCaseStepController(activity, fragment, scrollView);
+            ShowCaseStepDisplayer stepController =
+                    new ShowCaseStepDisplayer(activity, fragment, scrollView);
 
-            stepController.setItems(items);
+            stepController.setSteps(items);
 
             return stepController;
         }

@@ -11,7 +11,7 @@ import ru.dimorinny.showcasecard.position.ViewPosition;
 /**
  * One tip object, to be shown as a help tip on the screen.
  */
-public class ShowCaseStepItem {
+public class ShowCaseStep {
 
     /**
      * Position on the screen to point the showcase to, when viewToShowCase is not set.
@@ -38,7 +38,7 @@ public class ShowCaseStepItem {
      * @param viewToShowCase showcase will point to this view
      * @param message        message to show
      */
-    public ShowCaseStepItem(@NonNull View viewToShowCase, String message) {
+    public ShowCaseStep(@NonNull View viewToShowCase, String message) {
         this.viewToShowCase = viewToShowCase;
         this.message = message;
     }
@@ -48,10 +48,10 @@ public class ShowCaseStepItem {
      *
      * @param viewToShowCase showcase will point to and scroll to this view (if scrollToView is true) when activated.
      * @param scrollToView   true when you wish to scroll to this view when this showcase item is activated. Note
-     *                       that you'll have to provide the {@link ShowCaseStepController} with a ScrollView for this.
+     *                       that you'll have to provide the {@link ShowCaseStepDisplayer} with a ScrollView for this.
      * @param message        message to show
      */
-    public ShowCaseStepItem(@NonNull View viewToShowCase, String message, boolean scrollToView) {
+    public ShowCaseStep(@NonNull View viewToShowCase, String message, boolean scrollToView) {
         this.viewToShowCase = viewToShowCase;
         this.scrollToView = scrollToView;
         this.message = message;
@@ -64,8 +64,8 @@ public class ShowCaseStepItem {
      * @param fallbackPosition position to point to when viewToShowCase is null
      * @param message          message to show
      */
-    public ShowCaseStepItem(@Nullable View viewToShowCase,
-                            ShowCasePosition fallbackPosition, String message) {
+    public ShowCaseStep(@Nullable View viewToShowCase,
+                        ShowCasePosition fallbackPosition, String message) {
         this.viewToShowCase = viewToShowCase;
         this.fallbackPosition = fallbackPosition;
         this.message = message;
@@ -77,7 +77,7 @@ public class ShowCaseStepItem {
      * @param position position to point to
      * @param message  message to show
      */
-    public ShowCaseStepItem(ShowCasePosition position, String message) {
+    public ShowCaseStep(ShowCasePosition position, String message) {
         this.fallbackPosition = position;
         this.message = message;
     }
@@ -104,7 +104,7 @@ public class ShowCaseStepItem {
     /**
      * True to scroll to the viewToShowCase when this item is being activated.
      */
-    public ShowCaseStepItem setScrollToView(boolean scrollToView) {
+    public ShowCaseStep setScrollToView(boolean scrollToView) {
         this.scrollToView = scrollToView;
         return this;
     }
