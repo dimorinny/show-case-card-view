@@ -131,14 +131,10 @@ public class ShowCaseStepController {
      */
     private void displayTip(ShowCaseStepItem item) {
 
-        if (item.isScrollToView()) {
-            // items needs to be scrolled to
-
-            if (showCaseStepScroller == null) {
-                throw new RuntimeException("One of your items has 'scrollToView' on true but you " +
-                        "are not providing a ScrollView. To solve this, use a ShowCaseStepController " +
-                        "constructor with a scrollview.");
-            }
+        if (item.doScrollToView()
+                && item.getViewToShowCase() != null
+                && showCaseStepScroller != null) {
+            // try to scroll to the item
 
             if (showCaseView != null) {
                 // hide last card, just show dark overlay for now:

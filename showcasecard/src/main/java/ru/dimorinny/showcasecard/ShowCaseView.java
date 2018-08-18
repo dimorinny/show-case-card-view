@@ -439,7 +439,7 @@ public class ShowCaseView extends FrameLayout {
         private ShowCaseRadius radius = new Radius(128F);
         private TextView contentView;
         private String contentText;
-        private boolean dismissOnTouch;
+        private boolean dismissOnTouch = true;
         @Nullable
         private TouchListener touchListener;
         private DismissListener dismissListener;

@@ -27,7 +27,26 @@ dependencies {
 
 ## Usage
 
-You can show this view on your activity or fragment using this code:
+You can show a ShowCase (one item or a list of steps) on your activity or fragment using the below code.
+
+For a list of steps:
+```java
+ShowCaseStepController stepController = new ShowCaseStepController(MainActivity.this); // Activity or Fragment
+stepController.addItem(new ShowCaseStepItem(new Center(), "This is the center of the screen. Tap anywhere to continue."));
+stepController.addItem(new ShowCaseStepItem(viewToShowCase, "This points to a View's location. Tap to end the show case."));
+stepController.start();
+```
+
+or if you want to include an auto-scroll if the target view is off-screen:
+
+```java
+ShowCaseStepController stepController = new ShowCaseStepController(MainActivity.this, scrollView); // Activity or Fragment + ScrollView
+stepController.addItem(new ShowCaseStepItem(new Center(), "This is the center of the screen. Tap anywhere to continue."));
+stepController.addItem(new ShowCaseStepItem(viewToShowCase, "This View will be scrolled to if needed. Tap to end the show case.", true));
+stepController.start();
+```
+
+or you can just display a single item with:
 
 ```java
 new ShowCaseView.Builder(MainActivity.this)
@@ -50,6 +69,8 @@ new ShowCaseView.Builder(MainActivity.this)
 * `TopLeftToolbar()`
 * `TopRightToolbar()`
 * `ViewPosition(View view)`
+* `Center()`
+* `BottomCenter()`
 
 **Available radiuses:**
 
