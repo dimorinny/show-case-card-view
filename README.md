@@ -51,9 +51,7 @@ To display a single item:
 new ShowCaseView.Builder(MainActivity.this)
     .withTypedPosition(new TopLeft())
     .withTypedRadius(new Radius(186F))
-    .withContent(
-            "This is hello world!"
-    )
+    .withContent("This is hello world!")
     .build()
     .show(this);
 ```
@@ -76,4 +74,4 @@ new ShowCaseView.Builder(MainActivity.this)
 * `Radius(float radius)`
 * `ViewRadius(View view)`
 
-For more complication usage - see [example](https://github.com/dimorinny/show-case-card-view/blob/master/app/src/main/java/ru/dimorinny/showcasesample/MainActivity.java).
+For more complicated usage - see [example](https://github.com/dimorinny/show-case-card-view/blob/master/app/src/main/java/ru/dimorinny/showcasesample/MainActivity.java).
