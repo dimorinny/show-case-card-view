@@ -1,6 +1,4 @@
-<div align="center">
-	<img src="https://raw.githubusercontent.com/dimorinny/show-case-card-view/master/art/logo.png">
-</div>
+![Demo](https://github.com/dimorinny/show-case-card-view/blob/master/art/demo.gif?raw=true)
 
 [![](https://jitpack.io/v/dimorinny/show-case-card-view.svg)](https://jitpack.io/#dimorinny/show-case-card-view)
 
@@ -27,11 +25,11 @@ dependencies {
 
 ## Usage
 
-You can show a ShowCase on your activity or fragment using the below code.
+You can display a ShowCase on your activity or fragment using the below code.
 
 To display a list of (click-through) steps:
 ```java
-new ShowCaseStepDisplayer.Builder(MainActivity.this) // Activity or Fragment
+new ShowCaseStepDisplayer.Builder(MainActivity.this)
     .addStep(new ShowCaseStepItem(new Center(), "Message at center"))
     .addStep(new ShowCaseStepItem(view, "Message at View"))
     .build().start();
@@ -40,7 +38,7 @@ new ShowCaseStepDisplayer.Builder(MainActivity.this) // Activity or Fragment
 To auto-scroll when the view is off-screen:
 
 ```java
-new ShowCaseStepDisplayer.Builder(MainActivity.this) // Activity or Fragment
+new ShowCaseStepDisplayer.Builder(MainActivity.this)
     .withScrollView(scrollView)
     .addStep(new ShowCaseStepItem(view, "Message at View to scroll to", true))
     .addStep(new ShowCaseStepItem(new TopLeft(), "Message at TopLeft"))
@@ -79,7 +77,3 @@ new ShowCaseView.Builder(MainActivity.this)
 * `ViewRadius(View view)`
 
 For more complication usage - see [example](https://github.com/dimorinny/show-case-card-view/blob/master/app/src/main/java/ru/dimorinny/showcasesample/MainActivity.java).
-
-## Demo
-
-![Demo](https://github.com/dimorinny/show-case-card-view/blob/master/art/demo.gif?raw=true)
