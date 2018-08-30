@@ -63,9 +63,8 @@ public class MainActivity extends AppCompatActivity {
                 .withScrollView(scrollView)
                 .addStep(new ShowCaseStep(new Center(), "This is the center of the screen. Tap anywhere to continue."))
                 .addStep(new ShowCaseStep(listOfSteps, "This is the button you just clicked."))
-                .addStep(new ShowCaseStep(dummyViewToScrollTo, "A dummy item to auto-scroll to.",
-                        true))
-                .addStep(new ShowCaseStep(topLeft, "We end our showcase at the top button.", true))
+                .addStep(new ShowCaseStep(dummyViewToScrollTo, "A dummy item to auto-scroll to."))
+                .addStep(new ShowCaseStep(topLeft, "We end our showcase at the top button."))
                 .build().start();
     }
 

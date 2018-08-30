@@ -27,6 +27,8 @@ public class ShowCaseStepDisplayer {
     private Activity activity;
     @Nullable
     private Fragment fragment;
+    @Nullable
+    private ScrollView scrollView;
 
     private float showCaseRadius;
 
@@ -54,6 +56,7 @@ public class ShowCaseStepDisplayer {
 
         this.activity = activity;
         this.fragment = fragment;
+        this.scrollView = scrollView;
 
         //noinspection ConstantConditions
         this.context = activity != null ? activity : fragment.getContext();
@@ -108,8 +111,7 @@ public class ShowCaseStepDisplayer {
      */
     private void displayTip(ShowCaseStep item) {
 
-        if (item.doScrollToView()
-                && item.getViewToShowCase() != null
+        if (item.getPosition().getScrollPosition(scrollView) != null
                 && showCaseStepScroller != null) {
             // try to scroll to the item
 

@@ -4,7 +4,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
 
-import ru.dimorinny.showcasecard.position.Center;
 import ru.dimorinny.showcasecard.position.ShowCasePosition;
 import ru.dimorinny.showcasecard.position.ViewPosition;
 
@@ -16,58 +15,20 @@ public class ShowCaseStep {
     /**
      * Position on the screen to point the showcase to, when viewToShowCase is not set.
      */
-    private ShowCasePosition fallbackPosition;
+    private ShowCasePosition position;
     /**
      * Message to display when this item is activated.
      */
     private String message;
-    /**
-     * View this showcase is attached to. Null if no view (but a position) is directly attached
-     * to this item.
-     */
-    @Nullable
-    private View viewToShowCase;
-    /**
-     * True to scroll to the {@link #viewToShowCase} when this item is being activated.
-     */
-    private boolean scrollToView = false;
 
     /**
-     * A simple step item. viewToShowCase must be on the screen.
+     * A simple step item pointing to the position of viewToShowCase on the screen.
      *
      * @param viewToShowCase showcase will point to this view
      * @param message        message to show
      */
     public ShowCaseStep(@NonNull View viewToShowCase, String message) {
-        this.viewToShowCase = viewToShowCase;
-        this.message = message;
-    }
-
-    /**
-     * A simple step item. On activation, a scroll may occur.
-     *
-     * @param viewToShowCase showcase will point to and scroll to this view (if scrollToView is true) when activated.
-     * @param scrollToView   true when you wish to scroll to this view when this showcase item is activated. Note
-     *                       that you'll have to provide the {@link ShowCaseStepDisplayer} with a ScrollView for this.
-     * @param message        message to show
-     */
-    public ShowCaseStep(@NonNull View viewToShowCase, String message, boolean scrollToView) {
-        this.viewToShowCase = viewToShowCase;
-        this.scrollToView = scrollToView;
-        this.message = message;
-    }
-
-    /**
-     * A simple step item. Will either point to a view or a position (when viewToShowCase is null).
-     *
-     * @param viewToShowCase   if set, showcase will point to this view
-     * @param fallbackPosition position to point to when viewToShowCase is null
-     * @param message          message to show
-     */
-    public ShowCaseStep(@Nullable View viewToShowCase,
-                        ShowCasePosition fallbackPosition, String message) {
-        this.viewToShowCase = viewToShowCase;
-        this.fallbackPosition = fallbackPosition;
+        position = new ViewPosition(viewToShowCase);
         this.message = message;
     }
 
@@ -78,39 +39,38 @@ public class ShowCaseStep {
      * @param message  message to show
      */
     public ShowCaseStep(ShowCasePosition position, String message) {
-        this.fallbackPosition = position;
+        this.position = position;
         this.message = message;
     }
 
     /**
-     * @return the position this item will point to when activated. Can either be a view's position
-     * or a abstract position like {@link Center}.
+     * A simple step item. Will either point to a view or a position (when viewToShowCase is null).
+     * <p>
+     * This is mainly a helper constructor for easier usage.
+     *
+     * @param viewToShowCase   if set, showcase will point to this view
+     * @param fallbackPosition position to point to when viewToShowCase is null
+     * @param message          message to show
+     */
+    public ShowCaseStep(@Nullable View viewToShowCase,
+                        ShowCasePosition fallbackPosition, String message) {
+
+        if (viewToShowCase == null) {
+            position = fallbackPosition;
+        } else {
+            position = new ViewPosition(viewToShowCase);
+        }
+        this.message = message;
+    }
+
+    /**
+     * @return the position this item will point to when activated.
      */
     public ShowCasePosition getPosition() {
-        return viewToShowCase == null ? fallbackPosition : new ViewPosition(viewToShowCase);
+        return position;
     }
 
     public String getMessage() {
         return message;
-    }
-
-    /**
-     * True to scroll to the viewToShowCase when this item is being activated.
-     */
-    public boolean doScrollToView() {
-        return scrollToView;
-    }
-
-    /**
-     * True to scroll to the viewToShowCase when this item is being activated.
-     */
-    public ShowCaseStep setScrollToView(boolean scrollToView) {
-        this.scrollToView = scrollToView;
-        return this;
-    }
-
-    @Nullable
-    public View getViewToShowCase() {
-        return viewToShowCase;
     }
 }
