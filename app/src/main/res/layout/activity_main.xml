@@ -93,5 +93,33 @@
             android:text="@string/view_position"
             />
 
+        <Button
+            android:id="@+id/list_of_steps"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="4dp"
+            android:text="@string/list_of_steps"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1000dp"
+            />
+
+        <TextView
+            android:id="@+id/dummy_view_to_scroll_to"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="14dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="4dp"
+            android:gravity="center"
+            android:text="@string/text_to_scroll_to"
+            />
+
     </LinearLayout>
 </ScrollView>

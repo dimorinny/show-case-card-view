@@ -7,4 +7,6 @@
     <string name="top_left_toolbar">Top left toolbar</string>
     <string name="top_right_toolbar">Top right toolbar</string>
     <string name="view_position">View position</string>
+    <string name="list_of_steps">List of steps</string>
+    <string name="text_to_scroll_to">An example view to scroll to</string>
 </resources>
