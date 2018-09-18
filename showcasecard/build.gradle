@@ -30,7 +30,7 @@ android {
 }
 
 dependencies {
-    api 'com.android.support:appcompat-v7:26.0.1'
+    api 'com.android.support:appcompat-v7:26.0.2'
 }
 repositories {
     google()
