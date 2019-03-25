@@ -30,8 +30,8 @@ You can display a ShowCase on your activity or fragment using the below code.
 To display a list of (click-through) steps:
 ```java
 new ShowCaseStepDisplayer.Builder(MainActivity.this)
-    .addStep(new ShowCaseStepItem(new Center(), "Message at center"))
-    .addStep(new ShowCaseStepItem(view, "Message at View"))
+    .addStep(new ShowCaseStep(new Center(), "Message at center"))
+    .addStep(new ShowCaseStep(view, "Message at View"))
     .build().start();
 ```
 
@@ -40,8 +40,8 @@ Use withScrollView() if some step's target Views could be inside a ScrollView, t
 ```java
 new ShowCaseStepDisplayer.Builder(MainActivity.this)
     .withScrollView(scrollView)
-    .addStep(new ShowCaseStepItem(view, "Message at View to scroll to"))
-    .addStep(new ShowCaseStepItem(new TopLeft(), "Message at TopLeft"))
+    .addStep(new ShowCaseStep(view, "Message at View to scroll to"))
+    .addStep(new ShowCaseStep(new TopLeft(), "Message at TopLeft"))
     .build().start();
 ```
 
