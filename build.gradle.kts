@@ -2,13 +2,13 @@
 
 buildscript {
     repositories {
-        maven { url "https://jitpack.io" }
+        maven(url = "https://jitpack.io")
         jcenter()
         google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.2.0-rc02'
-        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.0'
+        classpath("com.android.tools.build:gradle:3.2.0-rc02")
+        classpath("com.github.dcendents:android-maven-gradle-plugin:2.0")
     }
     dependencies {
         // NOTE: Do not place your application dependencies here; they belong
@@ -18,12 +18,8 @@ buildscript {
 
 allprojects {
     repositories {
-        maven { url "https://jitpack.io" }
+        maven(url = "https://jitpack.io")
         jcenter()
         google()
     }
-}
-
-task clean(type: Delete) {
-    delete rootProject.buildDir
 }
