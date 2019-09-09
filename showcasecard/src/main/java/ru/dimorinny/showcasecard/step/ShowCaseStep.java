@@ -1,7 +1,9 @@
 package ru.dimorinny.showcasecard.step;
 
 import android.content.Context;
+import android.support.annotation.ColorRes;
 
+import ru.dimorinny.showcasecard.R;
 import ru.dimorinny.showcasecard.position.ShowCasePosition;
 import ru.dimorinny.showcasecard.radius.Radius;
 import ru.dimorinny.showcasecard.radius.ShowCaseRadius;
@@ -12,6 +14,9 @@ public class ShowCaseStep {
     private ShowCasePosition position;
     private ShowCaseRadius radius;
     private String message;
+
+    @ColorRes
+    private int color;
 
     public ShowCasePosition getPosition() {
         return position;
@@ -25,6 +30,11 @@ public class ShowCaseStep {
         return message;
     }
 
+    public @ColorRes
+    int getColor() {
+        return color;
+    }
+
     public static class Builder {
 
         private final static int DEFAULT_RADIUS_DP = 70;
@@ -32,6 +42,9 @@ public class ShowCaseStep {
         private ShowCaseRadius radius;
         private ShowCasePosition position;
         private String message;
+
+        @ColorRes
+        private int color = R.color.black20;
 
         public ShowCaseStep.Builder withTypedRadius(ShowCaseRadius radius) {
             this.radius = radius;
@@ -48,6 +61,11 @@ public class ShowCaseStep {
             return this;
         }
 
+        public ShowCaseStep.Builder withColor(@ColorRes int overlayColor) {
+            color = overlayColor;
+            return this;
+        }
+
         public ShowCaseStep build(Context context) {
             checkRequiredFields();
 
@@ -60,6 +78,7 @@ public class ShowCaseStep {
             step.position = position;
             step.radius = radius;
             step.message = message;
+            step.color = color;
 
             return step;
         }

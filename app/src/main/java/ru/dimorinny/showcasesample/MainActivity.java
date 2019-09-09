@@ -98,6 +98,13 @@ public class MainActivity extends AppCompatActivity {
                     ))
                     .build(this)
             )
+            .addStep(
+                new ShowCaseStep.Builder()
+                    .withMessage("With custom color")
+                    .withTypedPosition(new ViewPosition(topRightToolbar))
+                    .withColor(R.color.colorPrimaryDark)
+                    .build(this)
+            )
             .build()
             .start();
     }

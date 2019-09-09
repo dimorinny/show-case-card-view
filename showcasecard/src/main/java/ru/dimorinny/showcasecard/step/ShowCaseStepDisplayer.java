@@ -137,6 +137,7 @@ public class ShowCaseStepDisplayer {
                 }
             })
             .withContent(item.getMessage())
+            .withColor(item.getColor())
             .build();
 
         if (activity == null) {
