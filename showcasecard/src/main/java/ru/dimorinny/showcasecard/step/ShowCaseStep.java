@@ -1,76 +1,81 @@
 package ru.dimorinny.showcasecard.step;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.view.View;
+import android.content.Context;
 
 import ru.dimorinny.showcasecard.position.ShowCasePosition;
-import ru.dimorinny.showcasecard.position.ViewPosition;
+import ru.dimorinny.showcasecard.radius.Radius;
+import ru.dimorinny.showcasecard.radius.ShowCaseRadius;
+import ru.dimorinny.showcasecard.util.ViewUtils;
 
-/**
- * One tip object, to be shown as a help tip on the screen.
- */
 public class ShowCaseStep {
 
-    /**
-     * Position on the screen to point the showcase to, when viewToShowCase is not set.
-     */
     private ShowCasePosition position;
-    /**
-     * Message to display when this item is activated.
-     */
+    private ShowCaseRadius radius;
     private String message;
 
-    /**
-     * A simple step item pointing to the position of viewToShowCase on the screen.
-     *
-     * @param viewToShowCase showcase will point to this view
-     * @param message        message to show
-     */
-    public ShowCaseStep(@NonNull View viewToShowCase, String message) {
-        position = new ViewPosition(viewToShowCase);
-        this.message = message;
-    }
-
-    /**
-     * A simple step item pointing to a position on the screen.
-     *
-     * @param position position to point to
-     * @param message  message to show
-     */
-    public ShowCaseStep(ShowCasePosition position, String message) {
-        this.position = position;
-        this.message = message;
-    }
-
-    /**
-     * A simple step item. Will either point to a view or a position (when viewToShowCase is null).
-     * <p>
-     * This is mainly a helper constructor for easier usage.
-     *
-     * @param viewToShowCase   if set, showcase will point to this view
-     * @param fallbackPosition position to point to when viewToShowCase is null
-     * @param message          message to show
-     */
-    public ShowCaseStep(@Nullable View viewToShowCase,
-                        ShowCasePosition fallbackPosition, String message) {
-
-        if (viewToShowCase == null) {
-            position = fallbackPosition;
-        } else {
-            position = new ViewPosition(viewToShowCase);
-        }
-        this.message = message;
-    }
-
-    /**
-     * @return the position this item will point to when activated.
-     */
     public ShowCasePosition getPosition() {
         return position;
     }
 
+    public ShowCaseRadius getRadius() {
+        return radius;
+    }
+
     public String getMessage() {
         return message;
+    }
+
+    public static class Builder {
+
+        private final static int DEFAULT_RADIUS_DP = 70;
+
+        private ShowCaseRadius radius;
+        private ShowCasePosition position;
+        private String message;
+
+        public ShowCaseStep.Builder withTypedRadius(ShowCaseRadius radius) {
+            this.radius = radius;
+            return this;
+        }
+
+        public ShowCaseStep.Builder withTypedPosition(ShowCasePosition position) {
+            this.position = position;
+            return this;
+        }
+
+        public ShowCaseStep.Builder withMessage(String message) {
+            this.message = message;
+            return this;
+        }
+
+        public ShowCaseStep build(Context context) {
+            checkRequiredFields();
+
+            ShowCaseStep step = new ShowCaseStep();
+            if (radius == null) {
+                radius = new Radius(
+                        ViewUtils.convertDpToPx(context, DEFAULT_RADIUS_DP)
+                );
+            }
+            step.position = position;
+            step.radius = radius;
+            step.message = message;
+
+            return step;
+        }
+
+        private void checkRequiredFields() {
+            if (position == null) {
+                throw new IllegalArgumentException(
+                        "position is required field for ShowCaseStep builder"
+                );
+            }
+
+            if (message == null) {
+                throw new IllegalArgumentException(
+                        "message is required field for ShowCaseStep builder"
+                );
+            }
+        }
     }
 }

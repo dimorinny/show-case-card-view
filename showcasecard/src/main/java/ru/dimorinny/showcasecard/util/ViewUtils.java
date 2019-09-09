@@ -1,5 +1,6 @@
 package ru.dimorinny.showcasecard.util;
 
+import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.PointF;
 import android.util.DisplayMetrics;
@@ -9,7 +10,11 @@ import android.view.ViewGroup;
 public class ViewUtils {
 
     public static int convertDpToPx(View view, int dp) {
-        Resources resources = view.getContext().getResources();
+        return convertDpToPx(view.getContext(), dp);
+    }
+
+    public static int convertDpToPx(Context context, int dp) {
+        Resources resources = context.getResources();
         DisplayMetrics metrics = resources.getDisplayMetrics();
         return Math.round(dp * (metrics.densityDpi / 160.0f));
     }
