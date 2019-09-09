@@ -19,13 +19,13 @@ public class TopRight implements ShowCasePosition {
         switch (ActivityUtils.getOrientation(activity)) {
             case Configuration.ORIENTATION_LANDSCAPE:
                 return new PointF(
-                        width - NavigationBarUtils.navigationBarMarginForRightOrientation(activity),
-                        0F
+                    width - NavigationBarUtils.navigationBarMarginForRightOrientation(activity),
+                    0F
                 );
             default:
                 return new PointF(
-                        width,
-                        0F
+                    width,
+                    0F
                 );
         }
     }

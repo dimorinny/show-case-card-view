@@ -25,7 +25,7 @@ public class WrapWidthTextView extends AppCompatTextView {
         Layout layout = getLayout();
         if (layout != null) {
             int width = (int) Math.ceil(getMaxLineWidth(layout))
-                    + getCompoundPaddingLeft() + getCompoundPaddingRight();
+                + getCompoundPaddingLeft() + getCompoundPaddingRight();
             int height = getMeasuredHeight();
             setMeasuredDimension(width, height);
         }

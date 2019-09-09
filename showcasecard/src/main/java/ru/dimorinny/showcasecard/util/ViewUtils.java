@@ -23,8 +23,8 @@ public class ViewUtils {
         int[] positions = new int[2];
         view.getLocationOnScreen(positions);
         return new PointF(
-                (float) (positions[0] + view.getWidth() / 2),
-                (float) (positions[1] + view.getHeight() / 2)
+            (float) (positions[0] + view.getWidth() / 2),
+            (float) (positions[1] + view.getHeight() / 2)
         );
     }
 

@@ -1,20 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ru.dimorinny.showcasesample.MainActivity"
-    >
+    tools:context="ru.dimorinny.showcasesample.MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="4dp"
         android:layout_marginTop="4dp"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical">
 
         <Button
             android:id="@+id/top_left"
@@ -24,8 +21,7 @@
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginTop="4dp"
-            android:text="@string/top_left"
-            />
+            android:text="@string/top_left" />
 
         <Button
             android:id="@+id/top_right"
@@ -35,8 +31,7 @@
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginTop="4dp"
-            android:text="@string/top_right"
-            />
+            android:text="@string/top_right" />
 
         <Button
             android:id="@+id/bottom_left"
@@ -46,8 +41,7 @@
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginTop="4dp"
-            android:text="@string/bottom_left"
-            />
+            android:text="@string/bottom_left" />
 
         <Button
             android:id="@+id/bottom_right"
@@ -57,8 +51,7 @@
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginTop="4dp"
-            android:text="@string/bottom_right"
-            />
+            android:text="@string/bottom_right" />
 
         <Button
             android:id="@+id/top_left_toolbar"
@@ -68,8 +61,7 @@
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginTop="4dp"
-            android:text="@string/top_left_toolbar"
-            />
+            android:text="@string/top_left_toolbar" />
 
         <Button
             android:id="@+id/top_right_toolbar"
@@ -79,8 +71,7 @@
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginTop="4dp"
-            android:text="@string/top_right_toolbar"
-            />
+            android:text="@string/top_right_toolbar" />
 
         <Button
             android:id="@+id/view_position"
@@ -90,8 +81,7 @@
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginTop="4dp"
-            android:text="@string/view_position"
-            />
+            android:text="@string/view_position" />
 
         <Button
             android:id="@+id/list_of_steps"
@@ -101,13 +91,11 @@
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginTop="4dp"
-            android:text="@string/list_of_steps"
-            />
+            android:text="@string/list_of_steps" />
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1000dp"
-            />
+            android:layout_height="1000dp" />
 
         <TextView
             android:id="@+id/dummy_view_to_scroll_to"
@@ -118,8 +106,7 @@
             android:layout_marginRight="8dp"
             android:layout_marginTop="4dp"
             android:gravity="center"
-            android:text="@string/text_to_scroll_to"
-            />
+            android:text="@string/text_to_scroll_to" />
 
     </LinearLayout>
 </ScrollView>

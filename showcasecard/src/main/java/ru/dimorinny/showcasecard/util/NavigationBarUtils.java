@@ -29,7 +29,7 @@ public class NavigationBarUtils {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && hasNavigationBar(activity)) {
             int gravity = ((FrameLayout.LayoutParams) activity.findViewById(android.R.id.navigationBarBackground)
-                    .getLayoutParams()).gravity;
+                .getLayoutParams()).gravity;
             return gravityToNavigationBarPosition(gravity);
         }
 
@@ -40,8 +40,8 @@ public class NavigationBarUtils {
         int id = activity.getResources().getIdentifier("config_showNavigationBar", "bool", "android");
 
         return !(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP
-                && activity.findViewById(android.R.id.navigationBarBackground) == null) &&
-                id > 0 && activity.getResources().getBoolean(id);
+            && activity.findViewById(android.R.id.navigationBarBackground) == null) &&
+            id > 0 && activity.getResources().getBoolean(id);
     }
 
     private static NavigationBarPosition gravityToNavigationBarPosition(int gravity) {

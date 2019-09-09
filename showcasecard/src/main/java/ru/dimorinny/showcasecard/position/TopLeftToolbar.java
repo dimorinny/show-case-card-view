@@ -17,13 +17,13 @@ public class TopLeftToolbar implements ShowCasePosition {
         switch (ActivityUtils.getOrientation(activity)) {
             case Configuration.ORIENTATION_LANDSCAPE:
                 return new PointF(
-                        NavigationBarUtils.navigationBarMarginForLeftOrientation(activity),
-                        (float) ActivityUtils.statusBarHeight(activity)
+                    NavigationBarUtils.navigationBarMarginForLeftOrientation(activity),
+                    (float) ActivityUtils.statusBarHeight(activity)
                 );
             default:
                 return new PointF(
-                        0F,
-                        ActivityUtils.statusBarHeight(activity)
+                    0F,
+                    ActivityUtils.statusBarHeight(activity)
                 );
         }
     }

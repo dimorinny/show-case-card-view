@@ -19,13 +19,13 @@ public class Center implements ShowCasePosition {
             case Configuration.ORIENTATION_LANDSCAPE:
                 y = (float) activity.getWindow().getDecorView().getHeight() / 2;
                 return new PointF((activity.getWindow().getDecorView().getWidth() -
-                        NavigationBarUtils.navigationBarMarginForLeftOrientation(activity) -
-                        NavigationBarUtils.navigationBarMarginForRightOrientation(activity)) / 2,
-                        y);
+                    NavigationBarUtils.navigationBarMarginForLeftOrientation(activity) -
+                    NavigationBarUtils.navigationBarMarginForRightOrientation(activity)) / 2,
+                    y);
             default:
                 y = (activity.getWindow().getDecorView().getHeight() - (float) NavigationBarUtils.navigationBarHeight(activity)) / 2;
                 return new PointF(activity.getWindow().getDecorView().getWidth() / 2,
-                        y);
+                    y);
         }
     }
 

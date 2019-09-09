@@ -20,13 +20,13 @@ public class BottomRight implements ShowCasePosition {
         switch (ActivityUtils.getOrientation(activity)) {
             case Configuration.ORIENTATION_LANDSCAPE:
                 return new PointF(
-                        width - NavigationBarUtils.navigationBarMarginForRightOrientation(activity),
-                        height
+                    width - NavigationBarUtils.navigationBarMarginForRightOrientation(activity),
+                    height
                 );
             default:
                 return new PointF(
-                        width,
-                        height - (float) NavigationBarUtils.navigationBarHeight(activity)
+                    width,
+                    height - (float) NavigationBarUtils.navigationBarHeight(activity)
                 );
         }
     }

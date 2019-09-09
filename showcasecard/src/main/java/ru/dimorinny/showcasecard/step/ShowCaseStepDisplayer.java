@@ -37,9 +37,9 @@ public class ShowCaseStepDisplayer {
     private ShowCaseView showCaseView;
 
     private ShowCaseStepDisplayer(
-            @Nullable Activity activity,
-            @Nullable Fragment fragment,
-            @Nullable ScrollView scrollView
+        @Nullable Activity activity,
+        @Nullable Fragment fragment,
+        @Nullable ScrollView scrollView
     ) {
         this.activity = activity;
         this.fragment = fragment;
@@ -87,7 +87,7 @@ public class ShowCaseStepDisplayer {
     private void displayTip(final ShowCaseStep item) {
 
         if (item.getPosition().getScrollPosition(scrollView) != null
-                && showCaseStepScroller != null) {
+            && showCaseStepScroller != null) {
             // try to scroll to the item
 
             if (showCaseView != null) {
@@ -97,13 +97,13 @@ public class ShowCaseStepDisplayer {
 
             // scroll first, after that display the item:
             showCaseStepScroller.scrollToShowCaseStepItem(
-                    item,
-                    new ShowCaseStepScroller.OnCompleteListener() {
-                        @Override
-                        public void onComplete() {
-                            doDisplayTip(item);
-                        }
+                item,
+                new ShowCaseStepScroller.OnCompleteListener() {
+                    @Override
+                    public void onComplete() {
+                        doDisplayTip(item);
                     }
+                }
             );
 
         } else {
@@ -125,19 +125,19 @@ public class ShowCaseStepDisplayer {
 
         final int myTipIndex = currentlyDisplayedTipIndex;
         showCaseView = new ShowCaseView.Builder(context)
-                .withTypedPosition(item.getPosition())
-                .withTypedRadius(item.getRadius())
-                .dismissOnTouch(false)
-                .withTouchListener(new ShowCaseView.TouchListener() {
-                    @Override
-                    public void onTouchEvent() {
-                        if (myTipIndex == currentlyDisplayedTipIndex) {
-                            tryShowNextTip();
-                        }
+            .withTypedPosition(item.getPosition())
+            .withTypedRadius(item.getRadius())
+            .dismissOnTouch(false)
+            .withTouchListener(new ShowCaseView.TouchListener() {
+                @Override
+                public void onTouchEvent() {
+                    if (myTipIndex == currentlyDisplayedTipIndex) {
+                        tryShowNextTip();
                     }
-                })
-                .withContent(item.getMessage())
-                .build();
+                }
+            })
+            .withContent(item.getMessage())
+            .build();
 
         if (activity == null) {
             showCaseView.show(fragment);
@@ -232,7 +232,7 @@ public class ShowCaseStepDisplayer {
         public ShowCaseStepDisplayer build() {
 
             ShowCaseStepDisplayer stepController =
-                    new ShowCaseStepDisplayer(activity, fragment, scrollView);
+                new ShowCaseStepDisplayer(activity, fragment, scrollView);
 
             stepController.setSteps(items);
 

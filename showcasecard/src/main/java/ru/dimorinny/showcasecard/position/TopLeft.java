@@ -13,8 +13,8 @@ public class TopLeft implements ShowCasePosition {
     @Override
     public PointF getPosition(Activity activity) {
         return new PointF(
-                NavigationBarUtils.navigationBarMarginForLeftOrientation(activity),
-                0F
+            NavigationBarUtils.navigationBarMarginForLeftOrientation(activity),
+            0F
         );
     }
 

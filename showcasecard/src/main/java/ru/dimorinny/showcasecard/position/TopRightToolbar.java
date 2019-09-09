@@ -19,13 +19,13 @@ public class TopRightToolbar implements ShowCasePosition {
         switch (ActivityUtils.getOrientation(activity)) {
             case Configuration.ORIENTATION_LANDSCAPE:
                 return new PointF(
-                        width - NavigationBarUtils.navigationBarMarginForRightOrientation(activity),
-                        (float) ActivityUtils.statusBarHeight(activity)
+                    width - NavigationBarUtils.navigationBarMarginForRightOrientation(activity),
+                    (float) ActivityUtils.statusBarHeight(activity)
                 );
             default:
                 return new PointF(
-                        width,
-                        ActivityUtils.statusBarHeight(activity)
+                    width,
+                    ActivityUtils.statusBarHeight(activity)
                 );
         }
     }

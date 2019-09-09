@@ -54,7 +54,7 @@ public class ShowCaseStep {
             ShowCaseStep step = new ShowCaseStep();
             if (radius == null) {
                 radius = new Radius(
-                        ViewUtils.convertDpToPx(context, DEFAULT_RADIUS_DP)
+                    ViewUtils.convertDpToPx(context, DEFAULT_RADIUS_DP)
                 );
             }
             step.position = position;
@@ -67,13 +67,13 @@ public class ShowCaseStep {
         private void checkRequiredFields() {
             if (position == null) {
                 throw new IllegalArgumentException(
-                        "position is required field for ShowCaseStep builder"
+                    "position is required field for ShowCaseStep builder"
                 );
             }
 
             if (message == null) {
                 throw new IllegalArgumentException(
-                        "message is required field for ShowCaseStep builder"
+                    "message is required field for ShowCaseStep builder"
                 );
             }
         }

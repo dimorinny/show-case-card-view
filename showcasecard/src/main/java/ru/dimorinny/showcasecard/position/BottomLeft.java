@@ -17,14 +17,14 @@ public class BottomLeft implements ShowCasePosition {
         switch (ActivityUtils.getOrientation(activity)) {
             case Configuration.ORIENTATION_LANDSCAPE:
                 return new PointF(
-                        NavigationBarUtils.navigationBarMarginForLeftOrientation(activity),
-                        ((float) activity.getWindow().getDecorView().getHeight())
+                    NavigationBarUtils.navigationBarMarginForLeftOrientation(activity),
+                    ((float) activity.getWindow().getDecorView().getHeight())
                 );
             default:
                 return new PointF(
-                        0F,
-                        ((float) activity.getWindow().getDecorView().getHeight()) -
-                                ((float) NavigationBarUtils.navigationBarHeight(activity))
+                    0F,
+                    ((float) activity.getWindow().getDecorView().getHeight()) -
+                        ((float) NavigationBarUtils.navigationBarHeight(activity))
                 );
         }
     }

@@ -17,12 +17,12 @@ public class BottomCenter implements ShowCasePosition {
         switch (ActivityUtils.getOrientation(activity)) {
             case Configuration.ORIENTATION_LANDSCAPE:
                 return new PointF((activity.getWindow().getDecorView().getWidth() -
-                        NavigationBarUtils.navigationBarMarginForLeftOrientation(activity) -
-                        NavigationBarUtils.navigationBarMarginForRightOrientation(activity)) / 2,
-                        (float) activity.getWindow().getDecorView().getHeight());
+                    NavigationBarUtils.navigationBarMarginForLeftOrientation(activity) -
+                    NavigationBarUtils.navigationBarMarginForRightOrientation(activity)) / 2,
+                    (float) activity.getWindow().getDecorView().getHeight());
             default:
                 return new PointF(activity.getWindow().getDecorView().getWidth() / 2,
-                        (float) activity.getWindow().getDecorView().getHeight() - (float) NavigationBarUtils.navigationBarHeight(activity));
+                    (float) activity.getWindow().getDecorView().getHeight() - (float) NavigationBarUtils.navigationBarHeight(activity));
         }
     }
 

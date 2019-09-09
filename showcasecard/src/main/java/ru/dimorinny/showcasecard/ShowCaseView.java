@@ -233,14 +233,14 @@ public class ShowCaseView extends FrameLayout {
     private void configureCard(ViewGroup card) {
         cardContent.setMaxWidth(getCardWidth());
         cardContent.setPadding(
-                CARD_PADDING_VERTICAL,
-                CARD_PADDING_HORIZONTAL,
-                CARD_PADDING_VERTICAL,
-                CARD_PADDING_HORIZONTAL
+            CARD_PADDING_VERTICAL,
+            CARD_PADDING_HORIZONTAL,
+            CARD_PADDING_VERTICAL,
+            CARD_PADDING_HORIZONTAL
         );
         cardContent.setLayoutParams(new FrameLayout.LayoutParams(
-                LayoutParams.WRAP_CONTENT,
-                LayoutParams.WRAP_CONTENT
+            LayoutParams.WRAP_CONTENT,
+            LayoutParams.WRAP_CONTENT
         ));
 
         card.setBackgroundResource(getCardBackgroundDrawable());
@@ -258,9 +258,9 @@ public class ShowCaseView extends FrameLayout {
     }
 
     private void showAfterMeasured(
-            final Activity activity,
-            final ViewGroup container,
-            View measuredView
+        final Activity activity,
+        final ViewGroup container,
+        View measuredView
     ) {
         MeasuredUtils.afterOrAlreadyMeasured(measuredView, new MeasuredUtils.OnMeasuredHandler() {
             @Override
@@ -272,27 +272,27 @@ public class ShowCaseView extends FrameLayout {
 
                 if (typedPosition != null && typedPosition instanceof ViewPosition) {
                     viewsToMeasure.add(
-                            ((ViewPosition) typedPosition).getView()
+                        ((ViewPosition) typedPosition).getView()
                     );
                 }
 
                 if (typedRadius != null && typedRadius instanceof ViewRadius) {
                     viewsToMeasure.add(
-                            ((ViewRadius) typedRadius).getView()
+                        ((ViewRadius) typedRadius).getView()
                     );
                 }
 
                 if (!viewsToMeasure.isEmpty()) {
                     MeasuredUtils.afterOrAlreadyMeasuredViews(
-                            viewsToMeasure,
-                            new MeasuredUtils.OnMeasuredHandler() {
-                                @Override
-                                public void onMeasured() {
-                                    position = typedPosition.getPosition(activity);
-                                    radius = typedRadius.getRadius();
-                                    show(container);
-                                }
+                        viewsToMeasure,
+                        new MeasuredUtils.OnMeasuredHandler() {
+                            @Override
+                            public void onMeasured() {
+                                position = typedPosition.getPosition(activity);
+                                radius = typedRadius.getRadius();
+                                show(container);
                             }
+                        }
                     );
                 } else {
                     position = typedPosition.getPosition(activity);
@@ -353,49 +353,49 @@ public class ShowCaseView extends FrameLayout {
 
             final FrameLayout card = new FrameLayout(getContext());
             MeasuredUtils.afterOrAlreadyMeasured(
-                    card,
-                    new MeasuredUtils.OnMeasuredHandler() {
-                        @Override
-                        public void onMeasured() {
-                            configureCard(card);
+                card,
+                new MeasuredUtils.OnMeasuredHandler() {
+                    @Override
+                    public void onMeasured() {
+                        configureCard(card);
 
-                            ObjectAnimator animator = ObjectAnimator.ofFloat(
-                                    this,
-                                    CARD_ANIMATION_PROPERTY,
-                                    CARD_ANIMATION_OFFSET,
-                                    0F
-                            );
+                        ObjectAnimator animator = ObjectAnimator.ofFloat(
+                            this,
+                            CARD_ANIMATION_PROPERTY,
+                            CARD_ANIMATION_OFFSET,
+                            0F
+                        );
 
-                            animator.setStartDelay(ANIMATION_START_DELAY);
-                            animator.setDuration(CARD_ANIMATION_DURATION);
+                        animator.setStartDelay(ANIMATION_START_DELAY);
+                        animator.setDuration(CARD_ANIMATION_DURATION);
 
-                            animator.start();
-                        }
+                        animator.start();
                     }
+                }
             );
 
             addView(card);
             animate()
-                    .setStartDelay(ANIMATION_START_DELAY)
-                    .setDuration(VIEW_FADE_IN_DURATION)
-                    .alpha(1F);
+                .setStartDelay(ANIMATION_START_DELAY)
+                .setDuration(VIEW_FADE_IN_DURATION)
+                .alpha(1F);
         }
     }
 
     public void show(Activity activity) {
         ViewGroup container = (ViewGroup) activity.getWindow().getDecorView();
         showAfterMeasured(
-                activity,
-                container,
-                container
+            activity,
+            container,
+            container
         );
     }
 
     public void show(Fragment fragment) {
         showAfterMeasured(
-                fragment.getActivity(),
-                (ViewGroup) fragment.getActivity().getWindow().getDecorView(),
-                fragment.getView()
+            fragment.getActivity(),
+            (ViewGroup) fragment.getActivity().getWindow().getDecorView(),
+            fragment.getView()
         );
     }
 
@@ -403,20 +403,20 @@ public class ShowCaseView extends FrameLayout {
         if (!hideAnimationPerforming) {
 
             animate()
-                    .setListener(new AnimatorListenerAdapter() {
-                        @Override
-                        public void onAnimationEnd(Animator animation) {
-                            hideAnimationPerforming = false;
-                            removeFromWindow();
-                        }
+                .setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        hideAnimationPerforming = false;
+                        removeFromWindow();
+                    }
 
-                        @Override
-                        public void onAnimationStart(Animator animation) {
-                            super.onAnimationStart(animation);
-                            hideAnimationPerforming = true;
-                        }
-                    })
-                    .alpha(0F);
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+                        super.onAnimationStart(animation);
+                        hideAnimationPerforming = true;
+                    }
+                })
+                .alpha(0F);
         }
     }
 
@@ -444,7 +444,7 @@ public class ShowCaseView extends FrameLayout {
         private TouchListener touchListener;
         private DismissListener dismissListener;
         private ShowCasePosition position = new Position(
-                new PointF(0F, 0F)
+            new PointF(0F, 0F)
         );
 
         public Builder(Context context) {
@@ -487,8 +487,8 @@ public class ShowCaseView extends FrameLayout {
         @SuppressLint("InflateParams")
         public Builder withContent(String cardText) {
             this.contentView = (TextView) LayoutInflater.from(context).inflate(
-                    R.layout.item_show_case_content,
-                    null
+                R.layout.item_show_case_content,
+                null
             );
             this.contentText = cardText;
 
